@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { useLanguage } from "@/i18n/LanguageProvider";
-import { MagneticButton } from "@/components/motion/MagneticButton";
+import { motion } from 'framer-motion';
+import { useLanguage } from '@/i18n/LanguageProvider';
+import { MagneticButton } from '@/components/motion/MagneticButton';
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
 
 export function Hero() {
   const { t } = useLanguage();
 
-  const words = t.hero.tagline.split(" ");
+  const words = t.hero.tagline.split(' ');
 
   return (
     <section
@@ -49,23 +49,18 @@ export function Hero() {
             {t.hero.name}
           </motion.h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: easeOut, delay: 0.12 }}
-            className="mt-3 text-xl font-medium text-peppa-deep sm:text-2xl"
-          >
-            {t.hero.title}
-          </motion.p>
-
           {/* Tagline — word-by-word reveal */}
           <h2 className="mt-6 max-w-xl font-display text-2xl font-medium leading-snug text-ink/90 sm:text-3xl">
             {words.map((w, i) => (
               <motion.span
                 key={`${w}-${i}`}
-                initial={{ opacity: 0, y: 14, filter: "blur(6px)" }}
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                transition={{ duration: 0.5, ease: easeOut, delay: 0.25 + i * 0.06 }}
+                initial={{ opacity: 0, y: 14, filter: 'blur(6px)' }}
+                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                transition={{
+                  duration: 0.5,
+                  ease: easeOut,
+                  delay: 0.25 + i * 0.06,
+                }}
                 className="mr-[0.3em] inline-block"
               >
                 {w}
@@ -81,6 +76,20 @@ export function Hero() {
           >
             {t.hero.description}
           </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.9 }}
+            className="mt-4 flex flex-col gap-1 text-sm text-ink-soft sm:flex-row sm:items-center sm:gap-5"
+          >
+            <span className="inline-flex items-center gap-1 rounded-lg border border-gray-400 bg-white px-4 py-1.5 text-xs">
+              {t.hero.location}
+            </span>
+            <span className="inline-flex items-center gap-1 rounded-lg border border-gray-400 bg-white px-4 py-1.5 text-xs">
+              {t.hero.availability}
+            </span>
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 14 }}
@@ -102,20 +111,6 @@ export function Hero() {
               {t.hero.ctaContact}
               <span aria-hidden>→</span>
             </MagneticButton>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.9 }}
-            className="mt-8 flex flex-col gap-1 text-sm text-ink-soft sm:flex-row sm:items-center sm:gap-5"
-          >
-            <span className="inline-flex items-center gap-2">
-              <span aria-hidden>📍</span> {t.hero.location}
-            </span>
-            <span className="inline-flex items-center gap-2">
-              <span aria-hidden>✓</span> {t.hero.availability}
-            </span>
           </motion.div>
         </div>
 
@@ -147,14 +142,22 @@ export function Hero() {
           {/* Floating sticker badges */}
           <motion.div
             animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 4, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+            transition={{
+              duration: 4,
+              repeat: Number.POSITIVE_INFINITY,
+              ease: 'easeInOut',
+            }}
             className="absolute -left-5 top-10 rounded-2xl bg-white px-4 py-2 text-sm font-semibold text-ink shadow-card"
           >
             ⚡ 5M+ users
           </motion.div>
           <motion.div
             animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+            transition={{
+              duration: 5,
+              repeat: Number.POSITIVE_INFINITY,
+              ease: 'easeInOut',
+            }}
             className="absolute -right-4 bottom-12 rounded-2xl bg-white px-4 py-2 text-sm font-semibold text-ink shadow-card"
           >
             🚀 SSR + SEO
