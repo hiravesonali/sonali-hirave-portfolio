@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+/* =====================================================================
+   THEME — "Peppa" light palette
+   A warm, story-book light theme: cream canvas, bubblegum-pink hero
+   accents, coral, sky blue, mint and butter as supporting colours.
+   ===================================================================== */
+@theme {
+  /* Canvas */
+  --color-cream: #fff8f3;
+  --color-cream-deep: #fef0e9;
+  --color-ink: #3a2a3f; /* deep plum-charcoal for text */
+  --color-ink-soft: #6b5a70;
+
+  /* Peppa family */
+  --color-peppa: #f3a9cf; /* Peppa pink */
+  --color-peppa-deep: #ec6fa9;
+  --color-coral: #ff7a8a; /* warm coral / salmon */
+  --color-sky: #8fcfe8; /* George's sky blue */
+  --color-mint: #a8e0c5; /* soft mint */
+  --color-butter: #ffd97d; /* butter yellow */
+  --color-grape: #b794d4; /* soft purple */
+
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-plus-jakarta);
+
+  --shadow-soft: 0 10px 40px -12px rgba(236, 111, 169, 0.28);
+  --shadow-card: 0 18px 50px -20px rgba(58, 42, 63, 0.22);
+}
+
+:root {
+  --background: var(--color-cream);
+  --foreground: var(--color-ink);
+}
+
+* {
+  border-color: rgba(58, 42, 63, 0.08);
+}
+
+html {
+  scroll-behavior: auto; /* Lenis handles smoothing */
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background:
+    radial-gradient(1200px 600px at 100% -10%, rgba(143, 207, 232, 0.18), transparent 60%),
+    radial-gradient(900px 500px at -10% 20%, rgba(243, 169, 207, 0.22), transparent 55%),
+    radial-gradient(800px 600px at 50% 120%, rgba(168, 224, 197, 0.16), transparent 60%),
+    var(--color-cream);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Selection */
+::selection {
+  background: var(--color-peppa);
+  color: #fff;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-cream-deep);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-peppa);
+  border-radius: 9999px;
+  border: 2px solid var(--color-cream-deep);
+}
+
+/* Utility: blob / soft floaty shapes */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-22px) rotate(6deg); }
+}
+@keyframes float-slower {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(18px) translateX(-12px); }
+}
+.animate-float-slow { animation: float-slow 9s ease-in-out infinite; }
+.animate-float-slower { animation: float-slower 12s ease-in-out infinite; }
+
+/* Gradient text helper */
+.text-gradient {
+  background: linear-gradient(120deg, var(--color-peppa-deep), var(--color-coral) 55%, var(--color-grape));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float-slow,
+  .animate-float-slower {
+    animation: none;
+  }
+}
