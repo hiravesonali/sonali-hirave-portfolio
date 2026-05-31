@@ -211,9 +211,10 @@ const en: ContentShape = {
     ],
   },
   experience: {
-    chapter: 'Chapter 04 — The Journey',
-    heading: "Where I've built",
-    intro: 'Five years, three companies, millions of users.',
+    chapter: 'WORK EXPERIENCE',
+    heading: "Where I've delivered",
+    intro:
+      'impact across E-commerce, B2B, Saas, and multi-module product teams',
     items: [
       {
         company: 'Doratics',

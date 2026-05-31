@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { useLanguage } from "@/i18n/LanguageProvider";
-import { Hero } from "@/components/sections/Hero";
-import { About } from "@/components/sections/About";
-import { Skills } from "@/components/sections/Skills";
-import { Experience } from "@/components/sections/Experience";
-import { Projects } from "@/components/sections/Projects";
-import { Contact } from "@/components/sections/Contact";
-import { Footer } from "@/components/sections/Footer";
+import { useLanguage } from '@/i18n/LanguageProvider';
+import { Hero } from '@/components/sections/Hero';
+import { About } from '@/components/sections/About';
+import { Skills } from '@/components/sections/Skills';
+import { Experience } from '@/components/sections/Experience';
+import { Projects } from '@/components/sections/Projects';
+import { Contact } from '@/components/sections/Contact';
+import { Footer } from '@/components/sections/Footer';
 
 /**
  * All locale-dependent page content. Keyed by locale so the entire
@@ -21,9 +21,9 @@ export function LocalizedContent() {
     <div key={locale}>
       <main>
         <Hero />
-        <About />
-        <Skills />
+        {/* <About /> */}
         <Experience />
+        <Skills />
         <Projects />
         <Contact />
       </main>
