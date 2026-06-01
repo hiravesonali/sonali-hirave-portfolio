@@ -21,7 +21,6 @@ export function LocalizedContent() {
     <div key={locale}>
       <main>
         <Hero />
-        {/* <About /> */}
         <Experience />
         <Skills />
         <Projects />

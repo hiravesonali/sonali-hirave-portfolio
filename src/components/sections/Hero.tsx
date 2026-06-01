@@ -121,22 +121,13 @@ export function Hero() {
           transition={{ duration: 0.8, ease: easeOut, delay: 0.2 }}
           className="relative mx-auto w-full max-w-sm"
         >
-          <div className="animate-float-slow relative aspect-[4/5] overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-peppa via-coral to-grape p-1.5 shadow-card">
-            <div className="grid h-full w-full place-items-center rounded-[2.1rem] bg-cream/90 text-center">
-              {/* TODO: replace with Sonali's photo —
-                  drop a file at /public/sonali.jpg and swap this block for:
-                  <img src="/sonali.jpg" className="h-full w-full object-cover rounded-[2.1rem]" /> */}
-              <div className="px-6">
-                <div className="mx-auto grid h-28 w-28 place-items-center rounded-full bg-peppa text-4xl font-display font-semibold text-white shadow-soft">
-                  SH
-                </div>
-                <p className="mt-4 font-display text-lg font-medium text-ink">
-                  Sonali Hirave
-                </p>
-                <p className="text-sm text-ink-soft">
-                  React · Vue · Next · Nuxt
-                </p>
-              </div>
+          <div className="animate-float-slow relative flex aspect-[4/5] overflow-hidden rounded-[2.5rem] bg-gradient-to-b from-peppa via-coral to-peppa p-1.5 pb-4 shadow-card">
+            <div className="grid min-h-0 flex-1 place-items-center rounded-[2.1rem] bg-cream/90 text-center">
+              <img
+                src="/sonali-hirave.png"
+                alt={t.hero.name}
+                className="h-full w-full rounded-[2.1rem] object-cover"
+              />
             </div>
           </div>
           {/* Floating sticker badges */}

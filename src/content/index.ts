@@ -128,7 +128,7 @@ const en: ContentShape = {
     contact: 'Contact',
   },
   hero: {
-    chapter: 'FULLSTACK DEVELOPER',
+    chapter: 'FULL-STACK DEVELOPER',
     name: 'Sonali Hirave',
     title: 'Full-stack Engineer',
     tagline: 'Building scalable web applications from frontend to backend.',
