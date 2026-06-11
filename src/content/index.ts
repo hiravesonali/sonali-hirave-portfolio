@@ -352,7 +352,7 @@ const en: ContentShape = {
     email: 'hiravesonali@gmail.com',
     phone: '+49 15145093853',
     github: 'https://github.com/hiravesonali',
-    linkedin: 'https://www.linkedin.com/in/sonali-hirave-a03a96131',
+    linkedin: 'https://www.linkedin.com/in/sonali-hirave',
     githubLabel: 'GitHub',
     linkedinLabel: 'LinkedIn',
     phoneLabel: 'Phone',
