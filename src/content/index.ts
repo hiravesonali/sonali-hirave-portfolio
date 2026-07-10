@@ -155,10 +155,10 @@ const en: ContentShape = {
     ],
   },
   skills: {
-    chapter: 'Chapter 03 — The Toolkit',
+    chapter: 'MY TECH STACK',
     heading: 'What I build with',
     intro:
-      'A frontend-first stack, backed by enough backend and tooling to ship end-to-end.',
+      'A modern frontend-first stack with the backend, cloud, and AI tools to build scalable products from idea to production.',
     groups: [
       {
         label: 'Frontend',
@@ -242,7 +242,8 @@ const en: ContentShape = {
         bullets: [
           'Building a production-ready, SEO-first website platform with Nuxt.js, Tailwind CSS, Nitro.js, Drizzle ORM and Cloudflare (Pages, D1, R2).',
           'Improving frontend performance, SEO and scalable content generation through SSR, caching strategies and efficient rendering.',
-          'Architecting a modern monorepo to improve maintainability, scalability and developer productivity.',
+          'Established a modern monorepo architecture to enhance maintainability, scalability, and developer productivity.',
+          'Designed and implemented reusable UI components, dynamic page generation, and a flexible CMS, enabling agencies and local businesses to build SEO-optimized websites efficiently.',
         ],
       },
       {
@@ -288,32 +289,83 @@ const en: ContentShape = {
     ],
   },
   projects: {
-    chapter: 'Chapter 05 — Selected Work',
+    chapter: 'MY WORK',
     heading: "Things I've made",
-    intro: 'A few projects that show how I think and build.',
+    intro:
+      'A collection of projects that reflect my approach to product development and software engineering.',
     items: [
       {
-        name: 'Full-Stack Finance Dashboard',
-        year: '2025',
-        stack: ['Next.js', 'React', 'TypeScript', 'PostgreSQL'],
+        name: 'Findesk - Full-Stack Finance Dashboard',
+        year: '2026',
+        stack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'PostgreSQL'],
         description:
           'A full-stack finance dashboard built with the Next.js App Router and Server Actions — featuring authentication, analytics dashboards, search and pagination, backed by PostgreSQL with reusable, responsive UI components in Tailwind CSS.',
+        url: 'https://findsk.vercel.app',
       },
       {
         name: 'Doratics — SEO-First Website Builder',
-        year: '2025',
-        stack: ['Nuxt.js', 'Nitro.js', 'Drizzle ORM', 'Cloudflare'],
+        year: '2025-2026',
+        stack: [
+          'Nuxt.js',
+          'Vue.js',
+          'Tailwind CSS',
+          'TypeScript',
+          'SQLite',
+          'Nitro.js',
+          'Drizzle ORM',
+          'Cloudflare',
+        ],
         description:
           'A production-ready platform for SEO-optimized websites, built on a modern monorepo with SSR, smart caching and scalable content generation on Cloudflare Pages, D1 and R2.',
         url: 'https://doratics.com',
       },
       {
-        name: 'Multilingual E-Commerce Platform',
+        name: 'Expondo - Multilingual E-Commerce Platform',
         year: '2022–2025',
-        stack: ['Vue.js', 'Nuxt.js', 'TypeScript', 'GraphQL'],
+        stack: [
+          'Vue 3',
+          'Nuxt.js',
+          'TypeScript',
+          'Tailwind CSS',
+          'GraphQL',
+          'Vue Storefront',
+          'CommerceTools',
+        ],
         description:
           'Scalable, multilingual storefronts serving 5M+ users across 20+ countries — load times cut from ~10s to 2–3s through SSR, caching and GraphQL optimization.',
         url: 'https://www.expondo.de',
+      },
+      {
+        name: 'Wittypen – Content Creation Platform',
+        year: '2020–2022',
+        stack: [
+          'Vue.js',
+          'TypeScript',
+          'Tailwind CSS',
+          'REST APIs',
+          'Laravel',
+          'MySQL',
+          'Docker',
+        ],
+        description:
+          'Built end-to-end product features for a content creation platform, modernized the frontend by migrating from Bootstrap to Tailwind CSS, and developed collaborative workflows and editor capabilities for writers and content teams.',
+        url: 'https://wittypen.com',
+      },
+      {
+        name: 'Personal Portfolio',
+        year: '2026',
+        stack: [
+          'Vue.js',
+          'TypeScript',
+          'Tailwind CSS',
+          'REST APIs',
+          'Laravel',
+          'MySQL',
+          'Docker',
+        ],
+        description:
+          'Built end-to-end product features for a content creation platform, modernized the frontend by migrating from Bootstrap to Tailwind CSS, and developed collaborative workflows and editor capabilities for writers and content teams.',
+        url: 'https://wittypen.com',
       },
     ],
   },
@@ -381,15 +433,15 @@ const de: ContentShape = {
     contact: 'Kontakt',
   },
   hero: {
-    chapter: 'Kapitel 01 — Hallo',
+    chapter: 'FULL-STACK DEVELOPER',
     name: 'Sonali Hirave',
-    title: 'Frontend Engineer',
-    tagline: 'Vom Pixel zur Produktion — Interfaces, die skalieren.',
+    title: 'Full-Stack Engineer',
+    tagline: 'Skalierbare Webanwendungen vom Frontend bis zum Backend.',
     description:
-      'Frontend Engineer mit über 5 Jahren Erfahrung in der Entwicklung skalierbarer und leistungsstarker Webanwendungen mit React, Vue.js, Next.js, Nuxt.js und TypeScript. Spezialisiert auf Frontend-Architekturen, Server-Side Rendering (SSR), SEO und responsive Benutzeroberflächen für E-Commerce-Plattformen mit mehr als 5 Millionen Nutzern in über 20 Ländern.',
+      'Full-Stack Engineer mit über 5 Jahren Erfahrung in der Entwicklung skalierbarer, performanter Webanwendungen mit React, Vue.js, Next.js, Nuxt.js, TypeScript, Node.js und PostgreSQL. Erfahren in E-Commerce- und B2B-SaaS-Plattformen, mit Fokus auf Frontend-Architektur, Backend-Integrationen, SEO, SSR und skalierbare User Experiences für mehr als 5 Millionen Nutzer in über 20 Ländern.',
     ctaWork: 'Meine Arbeit ansehen',
     ctaContact: 'Sprechen wir',
-    location: 'Ingolstadt, Deutschland',
+    location: 'München, Deutschland',
     availability:
       'Uneingeschränkte Arbeitserlaubnis · Keine Visumsunterstützung nötig',
   },
@@ -418,8 +470,8 @@ const de: ContentShape = {
         label: 'Frontend',
         items: [
           'React',
-          'Next.js',
           'Vue.js',
+          'Next.js',
           'Nuxt.js',
           'TypeScript',
           'JavaScript (ES6+)',
@@ -427,6 +479,7 @@ const de: ContentShape = {
           'Context API',
           'Pinia',
           'Vuex',
+          'Vite',
           'Tailwind CSS',
           'HTML5',
           'CSS3',
@@ -447,8 +500,24 @@ const de: ContentShape = {
         ],
       },
       {
-        label: 'Tools & Entwicklung',
-        items: ['Git', 'Jest', 'Cypress', 'Turborepo', 'Datadog', 'Figma'],
+        label: 'Tools & Workflow',
+        items: [
+          'Jest',
+          'Vitest',
+          'Cypress',
+          'Turborepo',
+          'Datadog',
+          'Git',
+          'ESLint',
+          'Prettier',
+          'pnpm',
+          'Jira',
+          'Figma',
+        ],
+      },
+      {
+        label: 'DevOps & Deployment',
+        items: ['Docker', 'GitLab CI/CD', 'GitHub', 'Actions', 'Datadog'],
       },
       {
         label: 'Performance & SEO',
@@ -465,9 +534,9 @@ const de: ContentShape = {
     ],
   },
   experience: {
-    chapter: 'Kapitel 04 — Der Weg',
-    heading: 'Wo ich entwickelt habe',
-    intro: 'Fünf Jahre, drei Unternehmen, Millionen von Nutzern.',
+    chapter: 'BERUFSERFAHRUNG',
+    heading: 'Wo ich Wirkung erzielt habe',
+    intro: 'Erfahrung in E-Commerce, B2B, SaaS und produktübergreifenden Teams',
     items: [
       {
         company: 'Doratics',
@@ -506,6 +575,19 @@ const de: ContentShape = {
           'Neugestaltung und Modernisierung der Plattform-Oberfläche durch die Migration bestehender Bootstrap-Komponenten zu Tailwind CSS.',
           'Entwicklung Kanban-basierter Content-Workflows sowie Erweiterung des TinyMCE-Editors um Kommentierungs- und Inline-Editing-Funktionen.',
           'Neugestaltung und Entwicklung der Unternehmenswebsite von der Designphase bis zur Produktivsetzung sowie Aufbau einer dedizierten Karriereseite.',
+        ],
+      },
+      {
+        company: 'Enthralltech Pvt. Ltd.',
+        url: 'https://enthral.ai',
+        role: 'Graphic Designer & Web Developer',
+        period: 'Mai 2016 — Mär 2018',
+        location: 'Indien',
+        bullets: [
+          'Erstellung von E-Learning-Inhalten, interaktiven Trainingsmaterialien und digitalen Medien für internationale Unternehmen, darunter Microsoft und PepsiCo.',
+          'Gestaltung und Entwicklung von UI-Elementen, Grafiken und Multimedia-Inhalten für Online-Lernplattformen.',
+          'Entwicklung interaktiver Lernmodule mit HTML, CSS und JavaScript.',
+          'Zusammenarbeit mit Instructional Design, Content- und Entwicklungsteams, um ansprechende digitale Lernerlebnisse umzusetzen.',
         ],
       },
     ],
@@ -575,7 +657,7 @@ const de: ContentShape = {
     email: 'hiravesonali@gmail.com',
     phone: '+49 15145093853',
     github: 'https://github.com/hiravesonali',
-    linkedin: 'https://www.linkedin.com/in/sonali-hirave-a03a96131',
+    linkedin: 'https://www.linkedin.com/in/sonali-hirave',
     githubLabel: 'GitHub',
     linkedinLabel: 'LinkedIn',
     phoneLabel: 'Telefon',
