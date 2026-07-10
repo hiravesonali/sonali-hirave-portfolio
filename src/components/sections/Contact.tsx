@@ -1,19 +1,39 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { useLanguage } from "@/i18n/LanguageProvider";
-import { SectionHeader } from "@/components/SectionHeader";
-import { Reveal } from "@/components/motion/Reveal";
-import { MagneticButton } from "@/components/motion/MagneticButton";
+import { motion } from 'framer-motion';
+import { useLanguage } from '@/i18n/LanguageProvider';
+import { SectionHeader } from '@/components/SectionHeader';
+import { Reveal } from '@/components/motion/Reveal';
+import { MagneticButton } from '@/components/motion/MagneticButton';
 
 export function Contact() {
   const { t } = useLanguage();
 
   const links = [
-    { label: t.contact.emailLabel, value: t.contact.email, href: `mailto:${t.contact.email}`, icon: "✉️" },
-    { label: t.contact.phoneLabel, value: t.contact.phone, href: `tel:${t.contact.phone.replace(/\s/g, "")}`, icon: "📞" },
-    { label: t.contact.githubLabel, value: "@hiravesonali", href: t.contact.github, icon: "🐙" },
-    { label: t.contact.linkedinLabel, value: "Sonali Hirave", href: t.contact.linkedin, icon: "💼" },
+    {
+      label: t.contact.emailLabel,
+      value: t.contact.email,
+      href: `mailto:${t.contact.email}`,
+      icon: '✉️',
+    },
+    {
+      label: t.contact.phoneLabel,
+      value: t.contact.phone,
+      href: `tel:${t.contact.phone.replace(/\s/g, '')}`,
+      icon: '📞',
+    },
+    {
+      label: t.contact.githubLabel,
+      value: '@hiravesonali',
+      href: t.contact.github,
+      icon: '🐙',
+    },
+    {
+      label: t.contact.linkedinLabel,
+      value: 'Sonali Hirave',
+      href: t.contact.linkedin,
+      icon: '💼',
+    },
   ];
 
   return (
@@ -22,7 +42,7 @@ export function Contact() {
         {/* Education / Languages / Work auth */}
         <div className="mb-20 grid gap-6 lg:grid-cols-3">
           <Reveal>
-            <div className="h-full rounded-3xl bg-white/70 p-7 shadow-card ring-1 ring-ink/5 backdrop-blur">
+            <div className="h-full rounded-3xl bg-peppa/20 p-7 shadow-card ring-1 ring-ink/5 backdrop-blur">
               <h3 className="font-display text-xl font-semibold text-ink">
                 {t.education.heading}
               </h3>
@@ -45,8 +65,13 @@ export function Contact() {
               </h3>
               <ul className="mt-4 space-y-3">
                 {t.education.languages.map((l) => (
-                  <li key={l.name} className="flex items-center justify-between gap-2">
-                    <span className="text-sm font-semibold text-ink">{l.name}</span>
+                  <li
+                    key={l.name}
+                    className="flex items-center justify-between gap-2"
+                  >
+                    <span className="text-sm font-semibold text-ink">
+                      {l.name}
+                    </span>
                     <span className="text-sm text-ink-soft">{l.level}</span>
                   </li>
                 ))}
@@ -62,7 +87,9 @@ export function Contact() {
               <ul className="mt-4 space-y-3">
                 {t.education.workAuth.map((w) => (
                   <li key={w} className="flex gap-2 text-sm text-ink/85">
-                    <span aria-hidden className="text-mint">✓</span>
+                    <span aria-hidden className="text-green-700">
+                      ✓
+                    </span>
                     <span>{w}</span>
                   </li>
                 ))}
@@ -101,12 +128,18 @@ export function Contact() {
                   <motion.a
                     key={l.label}
                     href={l.href}
-                    target={l.href.startsWith("http") ? "_blank" : undefined}
-                    rel={l.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    target={l.href.startsWith('http') ? '_blank' : undefined}
+                    rel={
+                      l.href.startsWith('http')
+                        ? 'noopener noreferrer'
+                        : undefined
+                    }
                     whileHover={{ y: -4 }}
                     className="flex flex-col items-center gap-1 rounded-2xl bg-white/80 px-4 py-4 text-sm shadow-sm ring-1 ring-ink/5 transition-colors hover:bg-white"
                   >
-                    <span className="text-xl" aria-hidden>{l.icon}</span>
+                    <span className="text-xl" aria-hidden>
+                      {l.icon}
+                    </span>
                     <span className="font-semibold text-ink">{l.label}</span>
                     <span className="text-xs text-ink-soft">{l.value}</span>
                   </motion.a>
