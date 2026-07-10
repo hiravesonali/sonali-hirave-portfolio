@@ -140,7 +140,7 @@ export function Hero() {
             }}
             className="absolute -left-5 top-10 rounded-2xl bg-white px-4 py-2 text-sm font-semibold text-ink shadow-card"
           >
-            ⚡ 5M+ users
+            🩷 {t.hero.frontendBadge}
           </motion.div>
           <motion.div
             animate={{ y: [0, 12, 0] }}
@@ -151,7 +151,7 @@ export function Hero() {
             }}
             className="absolute -right-4 bottom-12 rounded-2xl bg-white px-4 py-2 text-sm font-semibold text-ink shadow-card"
           >
-            🚀 SSR + SEO
+            🚀 {t.hero.fullStackBadge}
           </motion.div>
         </motion.div>
       </div>

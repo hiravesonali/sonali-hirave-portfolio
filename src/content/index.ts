@@ -58,6 +58,8 @@ export interface ContentShape {
     ctaContact: string;
     location: string;
     availability: string;
+    frontendBadge: string;
+    fullStackBadge: string;
   };
   about: {
     chapter: string;
@@ -138,6 +140,8 @@ const en: ContentShape = {
     ctaContact: "Let's talk",
     location: 'Munich, Germany',
     availability: 'Full work authorization · No visa sponsorship needed',
+    frontendBadge: 'Frontend at Heart',
+    fullStackBadge: 'Full-Stack by Choice',
   },
   about: {
     chapter: 'Chapter 02 — The Story',
@@ -436,6 +440,8 @@ const de: ContentShape = {
     location: 'München, Deutschland',
     availability:
       'Uneingeschränkte Arbeitserlaubnis · Keine Visumsunterstützung nötig',
+    frontendBadge: 'Frontend im Herzen',
+    fullStackBadge: 'Full-Stack aus Überzeugung',
   },
   about: {
     chapter: 'Kapitel 02 — Die Story',
@@ -453,10 +459,10 @@ const de: ContentShape = {
     ],
   },
   skills: {
-    chapter: 'Kapitel 03 — Das Werkzeug',
+    chapter: 'MEIN TECH-STACK',
     heading: 'Womit ich arbeite',
     intro:
-      'Ein Frontend-First-Stack, gestützt durch genug Backend und Tooling, um End-to-End auszuliefern.',
+      'Ein moderner Frontend-First-Stack, ergänzt durch Backend-, Cloud- und KI-Tools, um skalierbare Produkte von der Idee bis zur Produktion umzusetzen.',
     groups: [
       {
         label: 'Frontend',
@@ -539,7 +545,8 @@ const de: ContentShape = {
         bullets: [
           'Entwicklung einer produktionsreifen SEO-First Website-Plattform mit Nuxt.js, Tailwind CSS, Nitro.js, Drizzle ORM und Cloudflare (Pages, D1, R2).',
           'Verbesserung von Frontend-Performance, SEO und skalierbarer Content-Generierung durch SSR, Caching-Strategien und effiziente Rendering-Prozesse.',
-          'Aufbau einer modernen Monorepo-Architektur zur Verbesserung von Wartbarkeit, Skalierbarkeit und Entwicklerproduktivität.',
+          'Etablierung einer modernen Monorepo-Architektur, um Wartbarkeit, Skalierbarkeit und Entwicklerproduktivität zu verbessern.',
+          'Konzeption und Umsetzung wiederverwendbarer UI-Komponenten, dynamischer Seitengenerierung und eines flexiblen CMS, damit Agenturen und lokale Unternehmen SEO-optimierte Websites effizient erstellen können.',
         ],
       },
       {
@@ -585,32 +592,75 @@ const de: ContentShape = {
     ],
   },
   projects: {
-    chapter: 'Kapitel 05 — Ausgewählte Arbeiten',
+    chapter: 'MEINE ARBEIT',
     heading: 'Dinge, die ich gebaut habe',
-    intro: 'Ein paar Projekte, die zeigen, wie ich denke und entwickle.',
+    intro:
+      'Eine Auswahl von Projekten, die meine Herangehensweise an Produktentwicklung und Software Engineering zeigen.',
     items: [
       {
-        name: 'Full-Stack-Finanzdashboard',
-        year: '2025',
-        stack: ['Next.js', 'React', 'TypeScript', 'PostgreSQL'],
+        name: 'Findesk - Full-Stack-Finanzdashboard',
+        year: '2026',
+        stack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'PostgreSQL'],
         description:
           'Ein Full-Stack-Finanzdashboard mit Next.js App Router und Server Actions — mit Authentifizierung, Analyse-Dashboards, Suchfunktionen und Pagination, gestützt auf PostgreSQL mit wiederverwendbaren, responsiven UI-Komponenten in Tailwind CSS.',
+        url: 'https://findsk.vercel.app',
       },
       {
         name: 'Doratics — SEO-First Website-Builder',
-        year: '2025',
-        stack: ['Nuxt.js', 'Nitro.js', 'Drizzle ORM', 'Cloudflare'],
+        year: '2025-2026',
+        stack: [
+          'Nuxt.js',
+          'Vue.js',
+          'Tailwind CSS',
+          'TypeScript',
+          'SQLite',
+          'Nitro.js',
+          'Drizzle ORM',
+          'Cloudflare',
+        ],
         description:
           'Eine produktionsreife Plattform für SEO-optimierte Websites, gebaut auf einem modernen Monorepo mit SSR, intelligentem Caching und skalierbarer Content-Generierung auf Cloudflare Pages, D1 und R2.',
         url: 'https://doratics.com',
       },
       {
-        name: 'Mehrsprachige E-Commerce-Plattform',
+        name: 'Personal Portfolio',
+        year: '2026',
+        stack: ['Next.js', 'React', 'Tailwind CSS', 'TypeScript', 'Motion'],
+        description:
+          'Konzeption und Entwicklung eines modernen Portfolios, das meine Arbeit, technischen Fähigkeiten und Engineering-Herangehensweise zeigt — mit starkem Fokus auf Performance, responsives Design, Barrierefreiheit und eine durchdachte User Experience.',
+        url: 'https://portfolio.hiravesonali.workers.dev',
+      },
+      {
+        name: 'Expondo - Mehrsprachige E-Commerce-Plattform',
         year: '2022–2025',
-        stack: ['Vue.js', 'Nuxt.js', 'TypeScript', 'GraphQL'],
+        stack: [
+          'Vue 3',
+          'Nuxt.js',
+          'TypeScript',
+          'Tailwind CSS',
+          'GraphQL',
+          'Vue Storefront',
+          'CommerceTools',
+        ],
         description:
           'Skalierbare, mehrsprachige Storefronts für mehr als 5 Millionen Nutzer in über 20 Ländern — Ladezeiten von ca. 10s auf 2–3s reduziert durch SSR, Caching und GraphQL-Optimierung.',
         url: 'https://www.expondo.de',
+      },
+      {
+        name: 'Wittypen – Content-Creation-Plattform',
+        year: '2020–2022',
+        stack: [
+          'Vue.js',
+          'TypeScript',
+          'Tailwind CSS',
+          'REST APIs',
+          'Laravel',
+          'MySQL',
+          'Docker',
+        ],
+        description:
+          'Umsetzung von End-to-End-Produktfeatures für eine Content-Creation-Plattform, Modernisierung des Frontends durch die Migration von Bootstrap zu Tailwind CSS sowie Entwicklung kollaborativer Workflows und Editor-Funktionen für Autorinnen, Autoren und Content-Teams.',
+        url: 'https://wittypen.com',
       },
     ],
   },
@@ -620,7 +670,7 @@ const de: ContentShape = {
       {
         degree: 'Diplom in Grafikdesign und Webentwicklung',
         school: 'Arena Animation, Pune, Indien',
-        period: 'Jun 2015 — Dez 2018',
+        period: 'Jun 2015 — Dez 2017',
       },
       {
         degree: 'Diplom in Elektronik und Telekommunikation',
@@ -641,7 +691,7 @@ const de: ContentShape = {
     ],
   },
   contact: {
-    chapter: 'Kapitel 06 — Hallo sagen',
+    chapter: 'LASS UNS VERNETZEN',
     heading: 'Lass uns etwas Sinnvolles bauen',
     intro:
       'Offen für Frontend- und Full-Stack-Rollen, in denen Performance, saubere Architektur und großartige User Experience zählen. Schreib mir — ich freue mich zu hören, was du baust.',
