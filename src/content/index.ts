@@ -320,6 +320,14 @@ const en: ContentShape = {
         url: 'https://doratics.com',
       },
       {
+        name: 'Personal Portfolio',
+        year: '2026',
+        stack: ['Next.js', 'React', 'Tailwind CSS', 'TypeScript', 'Motion'],
+        description:
+          'Designed and developed a modern portfolio showcasing my work, technical skills, and engineering approach with a strong focus on performance, responsive design, accessibility, and thoughtful user experience.',
+        url: 'https://portfolio.hiravesonali.workers.dev',
+      },
+      {
         name: 'Expondo - Multilingual E-Commerce Platform',
         year: '2022–2025',
         stack: [
@@ -351,22 +359,6 @@ const en: ContentShape = {
           'Built end-to-end product features for a content creation platform, modernized the frontend by migrating from Bootstrap to Tailwind CSS, and developed collaborative workflows and editor capabilities for writers and content teams.',
         url: 'https://wittypen.com',
       },
-      {
-        name: 'Personal Portfolio',
-        year: '2026',
-        stack: [
-          'Vue.js',
-          'TypeScript',
-          'Tailwind CSS',
-          'REST APIs',
-          'Laravel',
-          'MySQL',
-          'Docker',
-        ],
-        description:
-          'Built end-to-end product features for a content creation platform, modernized the frontend by migrating from Bootstrap to Tailwind CSS, and developed collaborative workflows and editor capabilities for writers and content teams.',
-        url: 'https://wittypen.com',
-      },
     ],
   },
   education: {
@@ -375,7 +367,7 @@ const en: ContentShape = {
       {
         degree: 'Diploma in Graphic Design & Web Development',
         school: 'Arena Animation, Pune, India',
-        period: 'Jun 2015 — Dec 2018',
+        period: 'Jun 2015 — Dec 2017',
       },
       {
         degree: 'Diploma in Electronics & Telecommunication',
@@ -396,7 +388,7 @@ const en: ContentShape = {
     ],
   },
   contact: {
-    chapter: 'Chapter 06 — Say Hello',
+    chapter: "LET'S CONNECT",
     heading: "Let's build something meaningful",
     intro:
       "Open to frontend and full-stack roles where performance, clean architecture and great user experience matter. Drop me a line — I'd love to hear what you're building.",
