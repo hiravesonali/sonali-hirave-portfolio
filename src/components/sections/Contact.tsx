@@ -1,8 +1,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { FaGithub, FaLinkedinIn } from 'react-icons/fa6';
+import { MdOutlineEmail, MdOutlinePhone } from 'react-icons/md';
 import { useLanguage } from '@/i18n/LanguageProvider';
-import { SectionHeader } from '@/components/SectionHeader';
 import { Reveal } from '@/components/motion/Reveal';
 import { MagneticButton } from '@/components/motion/MagneticButton';
 
@@ -14,25 +15,25 @@ export function Contact() {
       label: t.contact.emailLabel,
       value: t.contact.email,
       href: `mailto:${t.contact.email}`,
-      icon: '✉️',
+      Icon: MdOutlineEmail,
     },
     {
       label: t.contact.phoneLabel,
       value: t.contact.phone,
       href: `tel:${t.contact.phone.replace(/\s/g, '')}`,
-      icon: '📞',
+      Icon: MdOutlinePhone,
     },
     {
       label: t.contact.githubLabel,
       value: '@hiravesonali',
       href: t.contact.github,
-      icon: '🐙',
+      Icon: FaGithub,
     },
     {
       label: t.contact.linkedinLabel,
       value: 'Sonali Hirave',
       href: t.contact.linkedin,
-      icon: '💼',
+      Icon: FaLinkedinIn,
     },
   ];
 
@@ -137,8 +138,11 @@ export function Contact() {
                     whileHover={{ y: -4 }}
                     className="flex flex-col items-center gap-1 rounded-2xl bg-white/80 px-4 py-4 text-sm shadow-sm ring-1 ring-ink/5 transition-colors hover:bg-white"
                   >
-                    <span className="text-xl" aria-hidden>
-                      {l.icon}
+                    <span
+                      className="grid size-10 place-items-center rounded-full bg-cream text-xl text-peppa-deep ring-1 ring-ink/5"
+                      aria-hidden
+                    >
+                      <l.Icon />
                     </span>
                     <span className="font-semibold text-ink">{l.label}</span>
                     <span className="text-xs text-ink-soft">{l.value}</span>
