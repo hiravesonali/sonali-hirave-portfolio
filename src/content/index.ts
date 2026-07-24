@@ -27,6 +27,12 @@ export interface SkillGroup {
   items: string[];
 }
 
+export interface Certification {
+  issuer: string;
+  name: string;
+  verifyUrl: string;
+}
+
 export interface EducationItem {
   degree: string;
   school: string;
@@ -72,6 +78,14 @@ export interface ContentShape {
     heading: string;
     intro: string;
     groups: SkillGroup[];
+  };
+  certifications: {
+    chapter: string;
+    heading: string;
+    intro: string;
+    verifyLabel: string;
+    pdfLabel: string;
+    items: Certification[];
   };
   experience: {
     chapter: string;
@@ -231,6 +245,21 @@ const en: ContentShape = {
       },
     ],
   },
+  certifications: {
+    chapter: 'CERTIFICATIONS',
+    heading: 'Learning, levelled up',
+    intro:
+      'A few milestones from the always-in-progress journey of turning curiosity into better things on the web.',
+    verifyLabel: 'Verify',
+    pdfLabel: 'PDF',
+    items: [
+      {
+        issuer: 'META VIA COURSERA',
+        name: 'Meta React Specialization',
+        verifyUrl: 'https://www.coursera.org/professional-certificates/meta-react',
+      },
+    ],
+  },
   experience: {
     chapter: 'WORK EXPERIENCE',
     heading: "Where I've delivered",
@@ -240,7 +269,7 @@ const en: ContentShape = {
       {
         company: 'Doratics',
         url: 'https://doratics.com',
-        role: 'Founder & Full-Stack Engineer',
+        role: 'Co-founder & Full-Stack Engineer',
         period: 'Oct 2025 — Present',
         location: 'SEO-first website builder',
         bullets: [
@@ -531,6 +560,21 @@ const de: ContentShape = {
       },
     ],
   },
+  certifications: {
+    chapter: 'ZERTIFIKATE',
+    heading: 'Lernen, nächstes Level',
+    intro:
+      'Ein paar Meilensteine aus meiner stetigen Reise, Neugier in bessere Web-Erlebnisse zu verwandeln.',
+    verifyLabel: 'Verifizieren',
+    pdfLabel: 'PDF',
+    items: [
+      {
+        issuer: 'META VIA COURSERA',
+        name: 'Meta React Spezialisierung',
+        verifyUrl: 'https://www.coursera.org/professional-certificates/meta-react',
+      },
+    ],
+  },
   experience: {
     chapter: 'BERUFSERFAHRUNG',
     heading: 'Wo ich Wirkung erzielt habe',
@@ -539,7 +583,7 @@ const de: ContentShape = {
       {
         company: 'Doratics',
         url: 'https://doratics.com',
-        role: 'Gründerin & Full-Stack Engineer',
+        role: 'Mitgründerin & Full-Stack Engineer',
         period: 'Okt 2025 — Heute',
         location: 'SEO-optimierter Website-Builder',
         bullets: [
