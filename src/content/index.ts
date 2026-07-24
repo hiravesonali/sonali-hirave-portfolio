@@ -256,7 +256,8 @@ const en: ContentShape = {
       {
         issuer: 'META VIA COURSERA',
         name: 'Meta React Specialization',
-        verifyUrl: 'https://www.coursera.org/professional-certificates/meta-react',
+        verifyUrl:
+          'https://www.coursera.org/account/accomplishments/verify/3IFWLELH8AAB',
       },
     ],
   },
@@ -571,7 +572,8 @@ const de: ContentShape = {
       {
         issuer: 'META VIA COURSERA',
         name: 'Meta React Spezialisierung',
-        verifyUrl: 'https://www.coursera.org/professional-certificates/meta-react',
+        verifyUrl:
+          'https://www.coursera.org/account/accomplishments/verify/3IFWLELH8AAB',
       },
     ],
   },
