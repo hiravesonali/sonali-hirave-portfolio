@@ -2,175 +2,120 @@
 
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/i18n/LanguageProvider';
-import { MagneticButton } from '@/components/motion/MagneticButton';
+import { AgentTrace } from '@/components/AgentTrace';
+import { Counter } from '@/components/motion/Counter';
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
 
+const rise = (delay: number) => ({
+  initial: { opacity: 0, y: 16 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.7, ease: easeOut, delay },
+});
+
 export function Hero() {
   const { t } = useLanguage();
-
-  const words = t.hero.tagline.split(' ');
+  const h = t.hero;
 
   return (
-    <section
-      id="home"
-      className="relative flex min-h-screen items-center overflow-hidden pt-28 pb-16"
-    >
-      {/* Floating storybook blobs */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="animate-float-slow absolute left-[8%] top-[18%] h-40 w-40 rounded-full bg-peppa/40 blur-2xl" />
-        <div className="animate-float-slower absolute right-[10%] top-[26%] h-56 w-56 rounded-full bg-sky/40 blur-2xl" />
-        <div className="animate-float-slow absolute bottom-[12%] left-[42%] h-44 w-44 rounded-full bg-mint/40 blur-2xl" />
-        <div className="animate-float-slower absolute right-[28%] bottom-[20%] h-24 w-24 rounded-full bg-butter/50 blur-xl" />
-      </div>
+    <section id="top" className="relative overflow-hidden pt-32 sm:pt-40">
+      <div aria-hidden className="bg-grid pointer-events-none absolute inset-0" />
+      <div aria-hidden className="bg-glow pointer-events-none absolute inset-0" />
 
-      <div className="mx-auto grid w-full max-w-6xl items-center gap-12 px-6 lg:grid-cols-[1.15fr_0.85fr]">
-        {/* Left: text */}
-        <div>
-          <motion.span
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: easeOut }}
-            className="inline-flex items-center gap-2 rounded-full bg-white/70 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-peppa-deep shadow-sm ring-1 ring-peppa/30 backdrop-blur"
+      <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-6 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12">
+        <div className="min-w-0">
+          <motion.p
+            {...rise(0)}
+            className="inline-flex items-center gap-2.5 rounded-full border border-line bg-surface/80 py-1.5 pl-3 pr-4 font-mono text-xs text-muted"
           >
             <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-mint opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-mint" />
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
             </span>
-            {t.hero.chapter}
-          </motion.span>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: easeOut, delay: 0.05 }}
-            className="mt-6 font-display text-5xl font-semibold leading-[1.05] tracking-tight text-ink sm:text-6xl lg:text-7xl"
-          >
-            {t.hero.name}
-          </motion.h1>
-
-          {/* Tagline — word-by-word reveal */}
-          <h2 className="mt-6 max-w-xl font-display text-2xl font-medium leading-snug text-ink/90 sm:text-3xl">
-            {words.map((w, i) => (
-              <motion.span
-                key={`${w}-${i}`}
-                initial={{ opacity: 0, y: 14, filter: 'blur(6px)' }}
-                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                transition={{
-                  duration: 0.5,
-                  ease: easeOut,
-                  delay: 0.25 + i * 0.06,
-                }}
-                className="mr-[0.3em] inline-block"
-              >
-                {w}
-              </motion.span>
-            ))}
-          </h2>
+            {h.status}
+          </motion.p>
 
           <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="mt-6 max-w-xl text-base leading-relaxed text-ink-soft"
+            {...rise(0.06)}
+            className="mt-8 font-mono text-sm text-muted"
           >
-            {t.hero.description}
+            {h.name} <span className="text-faint">/</span>{' '}
+            <span className="text-fg">{h.role}</span>
+          </motion.p>
+
+          <motion.h1
+            {...rise(0.12)}
+            className="mt-4 text-balance text-[2.6rem] font-medium leading-[1.04] tracking-tight text-fg sm:text-6xl lg:text-[4.25rem]"
+          >
+            {h.headlineLead}{' '}
+            <span className="font-serif font-normal italic text-accent">
+              {h.headlineAccent}
+            </span>
+          </motion.h1>
+
+          <motion.p
+            {...rise(0.2)}
+            className="mt-6 max-w-xl text-base leading-relaxed text-muted sm:text-lg"
+          >
+            {h.description}
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.9 }}
-            className="mt-4 flex flex-col gap-1 text-sm text-ink-soft sm:flex-row sm:items-center sm:gap-5"
+            {...rise(0.28)}
+            className="mt-9 flex flex-wrap items-center gap-3"
           >
-            <span className="inline-flex items-center gap-1 rounded-lg border border-gray-400 bg-white px-4 py-1.5 text-xs">
-              {t.hero.location}
-            </span>
-            <span className="inline-flex items-center gap-1 rounded-lg border border-gray-400 bg-white px-4 py-1.5 text-xs">
-              {t.hero.availability}
-            </span>
+            <a
+              href="#projects"
+              className="inline-flex h-11 items-center gap-2 rounded-md bg-accent px-5 text-sm font-medium text-accent-ink transition-transform hover:-translate-y-0.5"
+            >
+              {h.ctaWork}
+              <span aria-hidden>↓</span>
+            </a>
+            <a
+              href="#contact"
+              className="inline-flex h-11 items-center gap-2 rounded-md border border-line px-5 text-sm font-medium text-fg transition-colors hover:border-faint"
+            >
+              {h.ctaContact}
+              <span aria-hidden>→</span>
+            </a>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.75 }}
-            className="mt-8 flex flex-wrap items-center gap-4"
+          <motion.ul
+            {...rise(0.36)}
+            className="mt-8 flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs text-faint"
           >
-            <MagneticButton
-              href="#work"
-              className="inline-flex items-center gap-2 rounded-full bg-peppa-deep px-7 py-3.5 text-sm font-semibold text-white shadow-soft transition-shadow hover:shadow-lg"
-            >
-              {t.hero.ctaWork}
-              <span aria-hidden>↓</span>
-            </MagneticButton>
-            <MagneticButton
-              href="#contact"
-              className="inline-flex items-center gap-2 rounded-full bg-white/70 px-7 py-3.5 text-sm font-semibold text-ink shadow-sm ring-1 ring-ink/10 backdrop-blur transition-colors hover:bg-white"
-            >
-              {t.hero.ctaContact}
-              <span aria-hidden>→</span>
-            </MagneticButton>
-          </motion.div>
+            <li>{h.location}</li>
+            <li>{h.availability}</li>
+          </motion.ul>
         </div>
 
-        {/* Right: portrait card */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9, rotate: -3 }}
-          animate={{ opacity: 1, scale: 1, rotate: 0 }}
-          transition={{ duration: 0.8, ease: easeOut, delay: 0.2 }}
-          className="relative mx-auto w-full max-w-sm"
+          className="min-w-0"
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, ease: easeOut, delay: 0.25 }}
         >
-          <div className="animate-float-slow relative flex aspect-[4/5] overflow-hidden rounded-[2.5rem] bg-gradient-to-b from-peppa via-coral to-peppa p-1.5 pb-4 shadow-card">
-            <div className="grid min-h-0 flex-1 place-items-center rounded-[2.1rem] bg-cream/90 text-center">
-              <img
-                src="/sonali-hirave.png"
-                alt={t.hero.name}
-                className="h-full w-full rounded-[2.1rem] object-cover"
-              />
-            </div>
-          </div>
-          {/* Floating sticker badges */}
-          <motion.div
-            animate={{ y: [0, -10, 0] }}
-            transition={{
-              duration: 4,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: 'easeInOut',
-            }}
-            className="absolute -left-5 top-10 rounded-2xl bg-white px-4 py-2 text-sm font-semibold text-ink shadow-card"
-          >
-            🩷 {t.hero.frontendBadge}
-          </motion.div>
-          <motion.div
-            animate={{ y: [0, 12, 0] }}
-            transition={{
-              duration: 5,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: 'easeInOut',
-            }}
-            className="absolute -right-4 bottom-12 rounded-2xl bg-white px-4 py-2 text-sm font-semibold text-ink shadow-card"
-          >
-            🚀 {t.hero.fullStackBadge}
-          </motion.div>
+          <AgentTrace />
         </motion.div>
       </div>
 
-      {/* Scroll cue */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2"
+      {/* Stats strip */}
+      <motion.dl
+        {...rise(0.45)}
+        className="relative mx-auto mt-20 grid max-w-6xl grid-cols-2 border-t border-line px-6 lg:grid-cols-4"
       >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.6, repeat: Number.POSITIVE_INFINITY }}
-          className="flex h-9 w-6 items-start justify-center rounded-full border-2 border-ink/20 p-1.5"
-        >
-          <span className="h-2 w-1 rounded-full bg-peppa-deep" />
-        </motion.div>
-      </motion.div>
+        {h.stats.map((s) => (
+          <div
+            key={s.label}
+            className="flex flex-col-reverse gap-2 border-line py-7 pr-4 lg:border-l lg:pl-6 lg:first:border-l-0 lg:first:pl-0"
+          >
+            <dt className="font-mono text-xs text-faint">{s.label}</dt>
+            <dd className="text-2xl font-medium tracking-tight text-fg sm:text-3xl">
+              <Counter value={s.value} />
+            </dd>
+          </div>
+        ))}
+      </motion.dl>
     </section>
   );
 }

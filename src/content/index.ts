@@ -1,6 +1,6 @@
 // =====================================================================
 // CONTENT STORE — single source of truth for all copy (EN + DE)
-// Sonali can edit any string here without touching component code.
+// Edit any string here without touching component code.
 // =====================================================================
 
 export type Locale = 'en' | 'de';
@@ -12,19 +12,45 @@ export interface Experience {
   period: string;
   location: string;
   bullets: string[];
+  stack: string[];
 }
 
 export interface Project {
   name: string;
+  /** Short category shown on the card, e.g. "AI" or "Web". */
+  kind: string;
   year: string;
   stack: string[];
   description: string;
+  /** Live site or demo. */
   url?: string;
+  /** Source code repository. */
+  repoUrl?: string;
+}
+
+export type FeatureStatus = 'live' | 'building' | 'roadmap';
+
+export interface FeaturedProject {
+  name: string;
+  tagline: string;
+  year: string;
+  description: string;
+  url: string;
+  stack: string[];
+  featuresHeading: string;
+  features: { title: string; detail: string; status: FeatureStatus }[];
 }
 
 export interface SkillGroup {
   label: string;
   items: string[];
+}
+
+export interface Capability {
+  id: string;
+  title: string;
+  description: string;
+  tags: string[];
 }
 
 export interface Certification {
@@ -37,6 +63,7 @@ export interface EducationItem {
   degree: string;
   school: string;
   period: string;
+  current?: boolean;
 }
 
 export interface LangItem {
@@ -44,71 +71,102 @@ export interface LangItem {
   level: string;
 }
 
+export interface TraceStep {
+  /** Function-style name shown in monospace, e.g. "retrieve". */
+  tool: string;
+  label: string;
+  detail: string;
+}
+
 export interface ContentShape {
   meta: { title: string; description: string };
   nav: {
-    home: string;
     about: string;
-    skills: string;
+    capabilities: string;
     experience: string;
     projects: string;
+    background: string;
     contact: string;
+    menu: string;
+    language: string;
   };
   hero: {
-    chapter: string;
+    status: string;
     name: string;
-    title: string;
-    tagline: string;
+    role: string;
+    headlineLead: string;
+    headlineAccent: string;
     description: string;
     ctaWork: string;
     ctaContact: string;
     location: string;
     availability: string;
-    frontendBadge: string;
-    fullStackBadge: string;
+    stats: { label: string; value: string }[];
+  };
+  trace: {
+    title: string;
+    badge: string;
+    promptLabel: string;
+    prompt: string;
+    steps: TraceStep[];
+    awaiting: string;
+    approve: string;
+    edit: string;
+    approved: string;
+    outputLabel: string;
+    caption: string;
   };
   about: {
-    chapter: string;
+    label: string;
     heading: string;
     paragraphs: string[];
-    facts: { label: string; value: string }[];
+    nowLabel: string;
+    now: { title: string; detail: string }[];
+    photoAlt: string;
   };
-  skills: {
-    chapter: string;
+  capabilities: {
+    label: string;
     heading: string;
     intro: string;
+    items: Capability[];
+    stackHeading: string;
     groups: SkillGroup[];
   };
-  certifications: {
-    chapter: string;
-    heading: string;
-    intro: string;
-    verifyLabel: string;
-    pdfLabel: string;
-    items: Certification[];
-  };
   experience: {
-    chapter: string;
+    label: string;
     heading: string;
     intro: string;
     items: Experience[];
   };
   projects: {
-    chapter: string;
+    label: string;
     heading: string;
     intro: string;
+    featuredLabel: string;
+    visitLabel: string;
+    demoLabel: string;
+    codeLabel: string;
+    statusLabels: Record<FeatureStatus, string>;
+    featured: FeaturedProject;
+    moreHeading: string;
     items: Project[];
   };
-  education: {
+  background: {
+    label: string;
     heading: string;
-    items: EducationItem[];
+    educationHeading: string;
+    education: EducationItem[];
+    currentLabel: string;
+    certificationsHeading: string;
+    certifications: Certification[];
+    verifyLabel: string;
     languagesHeading: string;
     languages: LangItem[];
     workAuthHeading: string;
     workAuth: string[];
   };
   contact: {
-    chapter: string;
+    label: string;
     heading: string;
     intro: string;
     emailLabel: string;
@@ -126,159 +184,294 @@ export interface ContentShape {
   };
 }
 
+// Shared, language-independent values
+const EMAIL = 'hiravesonali@gmail.com';
+const PHONE = '+49 15145093853';
+const GITHUB = 'https://github.com/hiravesonali';
+const LINKEDIN = 'https://www.linkedin.com/in/sonali-hirave';
+const REACT_CERT_URL =
+  'https://www.coursera.org/account/accomplishments/verify/3IFWLELH8AAB';
+
+const DORATICS_STACK = [
+  'Nuxt.js',
+  'Vue.js',
+  'TypeScript',
+  'Nitro.js',
+  'Drizzle ORM',
+  'SQLite (D1)',
+  'Cloudflare',
+  'LLM APIs (OpenAI / Anthropic)',
+];
+const EXPONDO_STACK = [
+  'Vue.js 3',
+  'Nuxt.js',
+  'TypeScript',
+  'Tailwind CSS',
+  'GraphQL',
+  'Vue Storefront',
+  'CommerceTools',
+];
+const WITTYPEN_STACK = [
+  'Vue.js',
+  'Tailwind CSS',
+  'Laravel',
+  'REST API',
+  'MySQL',
+  'Docker',
+  'GitHub Actions',
+];
+const HOOT_STACK = [
+  'Python',
+  'Streamlit',
+  'OpenRouter (Claude / GPT)',
+  'Pydantic',
+  'SQLAlchemy',
+  'PostgreSQL',
+  'pytest',
+];
+const HOOT_URL = 'https://hoot-interview-prep-app.streamlit.app/';
+const HOOT_REPO = 'https://github.com/hiravesonali/Interview-prep-app';
+const ENTHRALL_STACK = ['HTML', 'CSS', 'JavaScript', 'UI & Graphic Design'];
+
+const SKILL_ITEMS = {
+  ai: [
+    'LLM APIs (OpenAI / Anthropic)',
+    'Prompt Engineering',
+    'Structured Outputs',
+    'RAG',
+    'Tool-Calling Agents',
+    'LangChain',
+    'LangSmith',
+    'Evals',
+    'Python',
+  ],
+  frontend: [
+    'TypeScript',
+    'React',
+    'Next.js',
+    'Vue.js',
+    'Nuxt.js',
+    'Tailwind CSS',
+    'SSR',
+    'Pinia',
+    'Vite',
+  ],
+  backend: [
+    'Node.js',
+    'Nitro.js',
+    'REST APIs',
+    'GraphQL',
+    'PostgreSQL',
+    'MySQL',
+    'SQLite (D1)',
+    'Drizzle ORM',
+    'Prisma',
+  ],
+  infra: [
+    'Cloudflare (Pages, D1, R2)',
+    'Docker',
+    'GitHub Actions',
+    'GitLab CI/CD',
+    'Turborepo',
+    'pnpm',
+    'Jest',
+    'Vitest',
+    'Cypress',
+    'Datadog',
+  ],
+};
+
+/*
+ * ADDING A PROJECT (e.g. a Turing College sprint project)
+ * Add an entry like this to `projects.items` in BOTH `en` and `de`:
+ *
+ *   {
+ *     name: 'Project name',
+ *     kind: 'AI',
+ *     year: '2026',
+ *     stack: ['Python', 'OpenAI API', 'FastAPI'],
+ *     description: 'One or two sentences: what it does and what you built.',
+ *     url: 'https://your-live-demo.example',          // optional
+ *     repoUrl: 'https://github.com/hiravesonali/your-repo', // optional
+ *   },
+ */
+
 // ---------------------------------------------------------------------
 // ENGLISH
 // ---------------------------------------------------------------------
 const en: ContentShape = {
   meta: {
-    title: 'Sonali Hirave — Frontend Engineer',
+    title: 'Sonali Hirave — Full-Stack AI Engineer',
     description:
-      'Frontend Engineer with 5+ years building scalable, high-performance web apps with React, Vue, Next.js, Nuxt.js and TypeScript.',
+      'Full-Stack AI Engineer in Munich. 5+ years shipping high-performance web products, now building LLM features end to end: prompts, structured outputs, RAG, agents, evals and the UI on top.',
   },
   nav: {
-    home: 'Home',
-    about: 'Story',
-    skills: 'Tech Stack',
-    experience: 'Journey',
-    projects: 'Work',
+    about: 'About',
+    capabilities: 'Capabilities',
+    experience: 'Experience',
+    projects: 'Projects',
+    background: 'Background',
     contact: 'Contact',
+    menu: 'Menu',
+    language: 'Switch language',
   },
   hero: {
-    chapter: 'FULL-STACK DEVELOPER',
+    status: 'Open to AI engineering roles',
     name: 'Sonali Hirave',
-    title: 'Full-stack Engineer',
-    tagline: 'Building scalable web applications from frontend to backend.',
+    role: 'Full-Stack AI Engineer',
+    headlineLead: 'I build LLM-powered products,',
+    headlineAccent: 'end to end.',
     description:
-      'Full-Stack Engineer with 5+ years building scalable, high-performance web applications with React, Vue.js, Next.js, Nuxt.js, TypeScript, Node.js, and PostgreSQL.Experienced in e-commerce and B2B SaaS platforms, specialising in frontend architecture, backend integrations, SEO, SSR, and scalable user experiences serving 5M+ users across 20+ countries.',
-    ctaWork: 'Explore my work',
-    ctaContact: "Let's talk",
+      'Full-Stack AI Engineer with 5+ years of experience shipping scalable, high-performance web products. Now building LLM features from prompts, structured outputs, RAG and tool-calling agents to evaluation and the streaming UI on top.',
+    ctaWork: 'See my work',
+    ctaContact: 'Get in touch',
     location: 'Munich, Germany',
-    availability: 'Full work authorization · No visa sponsorship needed',
-    frontendBadge: 'Frontend at Heart',
-    fullStackBadge: 'Full-Stack by Choice',
+    availability: 'No visa sponsorship needed',
+    stats: [
+      { label: 'Years shipping web products', value: '5+' },
+      { label: 'Users served', value: '5M+' },
+      { label: 'Countries', value: '20+' },
+      { label: 'Page load time', value: '~10s → 2–3s' },
+    ],
+  },
+  trace: {
+    title: 'doratics / content-pipeline',
+    badge: 'Illustrative run',
+    promptLabel: 'task',
+    prompt: 'Generate an FAQ page for a bakery in Munich',
+    steps: [
+      {
+        tool: 'retrieve',
+        label: 'Ground in business data',
+        detail: 'menu · price list · opening hours',
+      },
+      {
+        tool: 'generate',
+        label: 'Draft content with an LLM',
+        detail: 'service page · meta tags · FAQs',
+      },
+      {
+        tool: 'structure',
+        label: 'Emit validated JSON-LD',
+        detail: 'FAQPage · LocalBusiness',
+      },
+      {
+        tool: 'evaluate',
+        label: 'Score content quality',
+        detail: 'grounding · relevance · tone',
+      },
+      {
+        tool: 'approve',
+        label: 'Human-in-the-loop review',
+        detail: 'nothing ships without sign-off',
+      },
+    ],
+    awaiting: 'Awaiting approval',
+    approve: 'Approve',
+    edit: 'Edit',
+    approved: 'Approved',
+    outputLabel: 'output',
+    caption:
+      'A simplified view of the content pipeline I am building at Doratics.',
   },
   about: {
-    chapter: 'Chapter 02 — The Story',
-    heading: 'Building for millions, one component at a time',
+    label: 'About',
+    heading:
+      'A product engineer moving into AI, with the shipping habits intact.',
     paragraphs: [
-      "I'm a frontend engineer who loves turning complex product ideas into fast, accessible, and maintainable interfaces. Over the past five years I've shipped features used by millions — from multilingual e-commerce storefronts to content workflows and finance dashboards.",
-      'My happy place is the seam between design and engineering: reusable component systems, server-side rendering, performance budgets, and SEO that actually moves the needle. I care about clean architecture, but I care more about what users feel when a page loads in a blink.',
-      "Today I'm building Doratics, an SEO-first website platform, while staying hands-on with the React and Vue ecosystems I've grown up with.",
+      'I have spent 5+ years building web products that have to be fast and reliable for a lot of people, including multilingual e-commerce platforms serving 5M+ users across 20+ countries.',
+      'Now I build LLM-powered features end to end: prompts, structured outputs, RAG and tool-calling agents, the evals that tell you whether they work, and the streaming interface users actually touch.',
+      'My background in frontend architecture, SSR and performance carries over directly to the latency, cost and UX problems that decide whether an AI product is usable.',
     ],
-    facts: [
-      { label: 'Years of experience', value: '5+' },
-      { label: 'Users reached', value: '5M+' },
-      { label: 'Countries served', value: '20+' },
-      { label: 'Load time cut', value: '10s → 2-3s' },
+    nowLabel: 'Currently',
+    now: [
+      {
+        title: 'Turing College — AI Engineering',
+        detail: 'Python, LLM APIs, LangChain, RAG, agents, and evals with LangSmith.',
+      },
+      {
+        title: 'Doratics — AI layer',
+        detail:
+          'Applying it to an SEO-first website builder for local businesses.',
+      },
     ],
+    photoAlt: 'Portrait of Sonali Hirave',
   },
-  skills: {
-    chapter: 'MY TECH STACK',
-    heading: 'What I build with',
+  capabilities: {
+    label: 'Capabilities',
+    heading: 'The whole path from prompt to product.',
     intro:
-      'A modern frontend-first stack with the backend, cloud, and AI tools to build scalable products from idea to production.',
-    groups: [
-      {
-        label: 'Frontend',
-        items: [
-          'React',
-          'Vue.js',
-          'Next.js',
-          'Nuxt.js',
-          'TypeScript',
-          'JavaScript (ES6+)',
-          'React Hooks',
-          'Context API',
-          'Pinia',
-          'Vuex',
-          'Vite',
-          'Tailwind CSS',
-          'HTML5',
-          'CSS3',
-          'Responsive Design',
-        ],
-      },
-      {
-        label: 'Backend & Databases',
-        items: [
-          'Node.js',
-          'Nitro.js',
-          'REST APIs',
-          'GraphQL',
-          'MySQL',
-          'PostgreSQL',
-          'Prisma',
-          'Drizzle ORM',
-        ],
-      },
-      {
-        label: 'Tools & Workflow',
-        items: [
-          'Jest',
-          'Vitest',
-          'Cypress',
-          'Turborepo',
-          'Datadog',
-          'Git',
-          'ESLint',
-          'Prettier',
-          'pnpm',
-          'Jira',
-          'Figma',
-        ],
-      },
-      {
-        label: 'DevOps & Deployment',
-        items: ['Docker', 'GitLab CI/CD', 'GitHub', 'Actions', 'Datadog'],
-      },
-      {
-        label: 'Performance & SEO',
-        items: [
-          'Server-Side Rendering (SSR)',
-          'SEO Optimization',
-          'Performance Optimization',
-        ],
-      },
-      {
-        label: 'AI-assisted Development',
-        items: ['ChatGPT', 'Cursor', 'Claude'],
-      },
-    ],
-  },
-  certifications: {
-    chapter: 'CERTIFICATIONS',
-    heading: 'Learning, levelled up',
-    intro:
-      'A few milestones from the always-in-progress journey of turning curiosity into better things on the web.',
-    verifyLabel: 'Verify',
-    pdfLabel: 'PDF',
+      'An LLM feature is only as good as the system around it. These are the pieces I work on.',
     items: [
       {
-        issuer: 'META VIA COURSERA',
-        name: 'Meta React Specialization',
-        verifyUrl:
-          'https://www.coursera.org/account/accomplishments/verify/3IFWLELH8AAB',
+        id: 'llm',
+        title: 'LLM features',
+        description:
+          'Prompt design and LLM API integration for content generation: service pages, meta tags and FAQs.',
+        tags: ['OpenAI', 'Anthropic', 'Prompting'],
       },
+      {
+        id: 'structured',
+        title: 'Structured outputs',
+        description:
+          'Schema-constrained generation with validation, such as LocalBusiness and FAQ JSON-LD that has to be correct.',
+        tags: ['JSON Schema', 'JSON-LD', 'Validation'],
+      },
+      {
+        id: 'rag',
+        title: 'Retrieval (RAG)',
+        description:
+          'Grounding generated content in real business data like menus and price lists instead of guesses.',
+        tags: ['Embeddings', 'Chunking', 'Retrieval'],
+      },
+      {
+        id: 'agents',
+        title: 'Tool-calling agents',
+        description:
+          'Agents that take actions through tools, with human-in-the-loop approval before anything is applied.',
+        tags: ['LangChain', 'Tool use', 'Human-in-the-loop'],
+      },
+      {
+        id: 'evals',
+        title: 'Evals',
+        description:
+          'Automated checks on content quality, so changes to prompts and models are measured, not guessed.',
+        tags: ['LangSmith', 'Quality scoring', 'Regression checks'],
+      },
+      {
+        id: 'ui',
+        title: 'AI product UI',
+        description:
+          'Streaming responses and fast, server-rendered interfaces — where five years of frontend work pays off.',
+        tags: ['Streaming', 'SSR', 'Performance'],
+      },
+    ],
+    stackHeading: 'Stack',
+    groups: [
+      { label: 'AI', items: SKILL_ITEMS.ai },
+      { label: 'Frontend', items: SKILL_ITEMS.frontend },
+      { label: 'Backend & data', items: SKILL_ITEMS.backend },
+      { label: 'Infra & tooling', items: SKILL_ITEMS.infra },
     ],
   },
   experience: {
-    chapter: 'WORK EXPERIENCE',
-    heading: "Where I've delivered",
-    intro:
-      'impact across E-commerce, B2B, Saas, and multi-module product teams',
+    label: 'Experience',
+    heading: 'Where I have delivered.',
+    intro: 'E-commerce at scale, an early-stage startup, and my own product.',
     items: [
       {
         company: 'Doratics',
         url: 'https://doratics.com',
-        role: 'Co-founder & Full-Stack Engineer',
-        period: 'Oct 2025 — Present',
-        location: 'SEO-first website builder',
+        role: 'Full-Stack AI Engineer & Founder',
+        period: 'Apr 2025 — Present',
+        location: 'Munich, Germany',
         bullets: [
-          'Building a production-ready, SEO-first website platform with Nuxt.js, Tailwind CSS, Nitro.js, Drizzle ORM and Cloudflare (Pages, D1, R2).',
-          'Improving frontend performance, SEO and scalable content generation through SSR, caching strategies and efficient rendering.',
-          'Established a modern monorepo architecture to enhance maintainability, scalability, and developer productivity.',
-          'Designed and implemented reusable UI components, dynamic page generation, and a flexible CMS, enabling agencies and local businesses to build SEO-optimized websites efficiently.',
+          'Built a production-ready, SEO-first website platform for local businesses with Nuxt.js, TypeScript, Tailwind CSS, Nitro.js, Drizzle ORM and Cloudflare (Pages, D1, R2).',
+          "Designing and building the platform's AI layer: LLM content generation for service pages, meta tags and FAQs, and structured-output JSON-LD schema (LocalBusiness / FAQ) with validation.",
+          'Roadmap in active development: RAG over business data (menus, price lists) to ground content, an SEO audit agent with human-in-the-loop approval, and automated evals for content quality.',
+          'Improved performance and SEO through server-side rendering, caching and efficient rendering, and set up a monorepo architecture (Turborepo, pnpm) for maintainability.',
         ],
+        stack: DORATICS_STACK,
       },
       {
         company: 'Expondo GmbH',
@@ -287,12 +480,13 @@ const en: ContentShape = {
         period: 'Mar 2022 — Mar 2025',
         location: 'Berlin, Germany',
         bullets: [
-          'Developed and optimized scalable, multilingual e-commerce platforms with Vue.js, Nuxt.js and TypeScript for 5M+ users across 20+ countries.',
-          'Cut load times from ~10s to 2–3s through SSR, caching strategies and GraphQL API optimization.',
-          'Built reusable components and scalable frontend architectures for international web applications.',
-          'Delivered core product features in close collaboration with design, backend and product teams.',
-          'Ensured high software quality through code reviews, automated testing with Jest and Cypress, and agile processes.',
+          'Developed and optimized scalable, multilingual e-commerce platforms with Vue.js, Nuxt.js, TypeScript and Tailwind CSS, serving 5M+ users across 20+ countries.',
+          'Reduced page load times from ~10 seconds to 2–3 seconds through SSR, caching strategies and GraphQL API optimization.',
+          'Built reusable UI components and scalable frontend architectures for complex international web applications.',
+          'Delivered key product features with design, backend and cross-functional product teams in an agile setup.',
+          'Ensured quality through code reviews and automated testing with Jest and Cypress.',
         ],
+        stack: EXPONDO_STACK,
       },
       {
         company: 'WittyPen Pvt. Ltd.',
@@ -301,11 +495,12 @@ const en: ContentShape = {
         period: 'Jul 2020 — Feb 2022',
         location: 'India · Remote from Germany',
         bullets: [
-          'Delivered end-to-end product features for a content-creation platform with Vue.js, Tailwind CSS, Laravel REST APIs and MySQL in an early-stage startup.',
-          'Modernized the platform UI by migrating existing Bootstrap components to Tailwind CSS.',
-          'Built Kanban-based content workflows and extended the TinyMCE editor with commenting and inline-editing features.',
-          'Redesigned and built the company website from design to production, plus a dedicated careers page for job listings and applications.',
+          'Built end-to-end features for a content creation platform with Vue.js, Tailwind CSS, Laravel REST APIs, MySQL and Docker in an early-stage startup.',
+          'Modernized the platform UI by migrating Bootstrap components to Tailwind CSS.',
+          'Built Kanban-based content workflows and extended the TinyMCE editor with commenting and inline editing.',
+          'Designed and developed the company website from concept to production, including a careers page.',
         ],
+        stack: WITTYPEN_STACK,
       },
       {
         company: 'Enthralltech Pvt. Ltd.',
@@ -314,90 +509,122 @@ const en: ContentShape = {
         period: 'May 2016 — Mar 2018',
         location: 'India',
         bullets: [
-          'Created e-learning content, interactive training materials, and digital media for international companies, including Microsoft and PepsiCo.',
-          'Designed and developed UI elements, graphics, and multimedia content for online learning platforms.',
-          'Developed interactive learning modules using HTML, CSS, and JavaScript.',
-          'Collaborated with instructional designers, content creators, and development teams to deliver engaging digital learning experiences.',
+          'Created e-learning content, interactive training materials and digital media for international companies, including Microsoft and PepsiCo.',
+          'Developed interactive learning modules with HTML, CSS and JavaScript, and designed UI elements and graphics for online learning platforms.',
         ],
+        stack: ENTHRALL_STACK,
       },
     ],
   },
   projects: {
-    chapter: 'MY WORK',
-    heading: "Things I've made",
+    label: 'Projects',
+    heading: 'Selected work.',
     intro:
-      'A collection of projects that reflect my approach to product development and software engineering.',
+      'A platform where I am building the AI layer, an AI app I built and deployed, and the web platforms that taught me how to ship.',
+    featuredLabel: 'Featured · AI',
+    visitLabel: 'Visit',
+    demoLabel: 'Live demo',
+    codeLabel: 'Code',
+    statusLabels: {
+      live: 'Live',
+      building: 'In progress',
+      roadmap: 'Roadmap',
+    },
+    featured: {
+      name: 'Doratics',
+      tagline: 'SEO-first website builder for local businesses',
+      year: '2025 — Present',
+      description:
+        'A production platform that lets local businesses launch fast, search-optimized websites. I built the platform and am now adding the AI layer that writes, structures and checks the content.',
+      url: 'https://doratics.com',
+      stack: DORATICS_STACK,
+      featuresHeading: 'Platform & AI layer',
+      features: [
+        {
+          title: 'Website platform',
+          detail:
+            'SSR, caching and a Turborepo monorepo on Cloudflare Pages, D1 and R2.',
+          status: 'live',
+        },
+        {
+          title: 'LLM content generation',
+          detail: 'Service pages, meta tags and FAQs.',
+          status: 'building',
+        },
+        {
+          title: 'Structured-output schema',
+          detail: 'LocalBusiness / FAQ JSON-LD with validation.',
+          status: 'building',
+        },
+        {
+          title: 'RAG over business data',
+          detail: 'Menus and price lists ground the generated content.',
+          status: 'roadmap',
+        },
+        {
+          title: 'SEO audit agent',
+          detail: 'Suggests fixes, applies them only after human approval.',
+          status: 'roadmap',
+        },
+        {
+          title: 'Automated evals',
+          detail: 'Content quality scoring.',
+          status: 'roadmap',
+        },
+      ],
+    },
+    moreHeading: 'More projects',
     items: [
       {
-        name: 'Findesk - Full-Stack Finance Dashboard',
+        name: 'Hoot — AI Interview Prep',
+        kind: 'AI',
         year: '2026',
-        stack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'PostgreSQL'],
+        stack: HOOT_STACK,
         description:
-          'A full-stack finance dashboard built with the Next.js App Router and Server Actions — featuring authentication, analytics dashboards, search and pagination, backed by PostgreSQL with reusable, responsive UI components in Tailwind CSS.',
-        url: 'https://findsk.vercel.app',
+          'An AI interview coach for technical roles: guided or mock practice sessions with scored feedback, a job-description analyzer that produces a prep plan and the interviewer’s rubric, and a resume builder that tailors a resume to a job. Every prompt passes a security guard (rules, an LLM classifier and output checks) with per-user spend caps. Built in the Turing College AI Engineering program.',
+        url: HOOT_URL,
+        repoUrl: HOOT_REPO,
       },
       {
-        name: 'Doratics — SEO-First Website Builder',
-        year: '2025-2026',
-        stack: [
-          'Nuxt.js',
-          'Vue.js',
-          'Tailwind CSS',
-          'TypeScript',
-          'SQLite',
-          'Nitro.js',
-          'Drizzle ORM',
-          'Cloudflare',
-        ],
+        name: 'Expondo — Multilingual E-Commerce Platform',
+        kind: 'Web',
+        year: '2022 — 2025',
+        stack: ['Vue 3', 'Nuxt.js', 'TypeScript', 'GraphQL', 'CommerceTools'],
         description:
-          'A production-ready platform for SEO-optimized websites, built on a modern monorepo with SSR, smart caching and scalable content generation on Cloudflare Pages, D1 and R2.',
-        url: 'https://doratics.com',
-      },
-      {
-        name: 'Personal Portfolio',
-        year: '2026',
-        stack: ['Next.js', 'React', 'Tailwind CSS', 'TypeScript', 'Motion'],
-        description:
-          'Designed and developed a modern portfolio showcasing my work, technical skills, and engineering approach with a strong focus on performance, responsive design, accessibility, and thoughtful user experience.',
-        url: 'https://portfolio.hiravesonali.workers.dev',
-      },
-      {
-        name: 'Expondo - Multilingual E-Commerce Platform',
-        year: '2022–2025',
-        stack: [
-          'Vue 3',
-          'Nuxt.js',
-          'TypeScript',
-          'Tailwind CSS',
-          'GraphQL',
-          'Vue Storefront',
-          'CommerceTools',
-        ],
-        description:
-          'Scalable, multilingual storefronts serving 5M+ users across 20+ countries — load times cut from ~10s to 2–3s through SSR, caching and GraphQL optimization.',
+          'Multilingual storefronts serving 5M+ users across 20+ countries. Load times cut from ~10s to 2–3s through SSR, caching and GraphQL optimization.',
         url: 'https://www.expondo.de',
       },
       {
-        name: 'Wittypen – Content Creation Platform',
-        year: '2020–2022',
-        stack: [
-          'Vue.js',
-          'TypeScript',
-          'Tailwind CSS',
-          'REST APIs',
-          'Laravel',
-          'MySQL',
-          'Docker',
-        ],
+        name: 'Findesk — Full-Stack Finance Dashboard',
+        kind: 'Web',
+        year: '2026',
+        stack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'PostgreSQL'],
         description:
-          'Built end-to-end product features for a content creation platform, modernized the frontend by migrating from Bootstrap to Tailwind CSS, and developed collaborative workflows and editor capabilities for writers and content teams.',
+          'A finance dashboard on the Next.js App Router and Server Actions with authentication, analytics, search and pagination, backed by PostgreSQL.',
+        url: 'https://findsk.vercel.app',
+      },
+      {
+        name: 'WittyPen — Content Creation Platform',
+        kind: 'Web',
+        year: '2020 — 2022',
+        stack: ['Vue.js', 'Tailwind CSS', 'Laravel', 'MySQL', 'Docker'],
+        description:
+          'End-to-end features for a content platform: Kanban content workflows, an extended TinyMCE editor with commenting, and a Bootstrap-to-Tailwind migration.',
         url: 'https://wittypen.com',
       },
     ],
   },
-  education: {
-    heading: 'Education',
-    items: [
+  background: {
+    label: 'Background',
+    heading: 'Education and credentials.',
+    educationHeading: 'Education',
+    education: [
+      {
+        degree: 'AI Engineering Program',
+        school: 'Turing College',
+        period: '2026 — Present',
+        current: true,
+      },
       {
         degree: 'Diploma in Graphic Design & Web Development',
         school: 'Arena Animation, Pune, India',
@@ -409,34 +636,44 @@ const en: ContentShape = {
         period: 'Jan 2012 — Apr 2015',
       },
     ],
+    currentLabel: 'In progress',
+    certificationsHeading: 'Certifications',
+    certifications: [
+      {
+        issuer: 'Meta via Coursera',
+        name: 'Meta React Specialization',
+        verifyUrl: REACT_CERT_URL,
+      },
+    ],
+    verifyLabel: 'Verify',
     languagesHeading: 'Languages',
     languages: [
       { name: 'English', level: 'Fluent' },
       { name: 'German', level: 'B1 (Integration course completed)' },
       { name: 'Hindi', level: 'Native' },
     ],
-    workAuthHeading: 'Work Authorization',
+    workAuthHeading: 'Work authorization',
     workAuth: [
       'Unrestricted work permit for Germany',
       'No visa sponsorship required',
     ],
   },
   contact: {
-    chapter: "LET'S CONNECT",
-    heading: "Let's build something meaningful",
+    label: 'Contact',
+    heading: 'Building something with LLMs? Let’s talk.',
     intro:
-      "Open to frontend and full-stack roles where performance, clean architecture and great user experience matter. Drop me a line — I'd love to hear what you're building.",
+      'I am open to AI engineering and full-stack AI roles where the model, the product and the user experience all matter.',
     emailLabel: 'Email',
-    email: 'hiravesonali@gmail.com',
-    phone: '+49 15145093853',
-    github: 'https://github.com/hiravesonali',
-    linkedin: 'https://www.linkedin.com/in/sonali-hirave',
+    email: EMAIL,
+    phone: PHONE,
+    github: GITHUB,
+    linkedin: LINKEDIN,
     githubLabel: 'GitHub',
     linkedinLabel: 'LinkedIn',
     phoneLabel: 'Phone',
   },
   footer: {
-    built: 'Built with Next.js, TypeScript & Framer Motion.',
+    built: 'Built with Next.js, TypeScript and Tailwind CSS.',
     rights: 'All rights reserved.',
   },
 };
@@ -446,154 +683,178 @@ const en: ContentShape = {
 // ---------------------------------------------------------------------
 const de: ContentShape = {
   meta: {
-    title: 'Sonali Hirave — Frontend Engineer',
+    title: 'Sonali Hirave — Full-Stack AI Engineer',
     description:
-      'Frontend Engineer mit über 5 Jahren Erfahrung in der Entwicklung skalierbarer, leistungsstarker Webanwendungen mit React, Vue, Next.js, Nuxt.js und TypeScript.',
+      'Full-Stack AI Engineer in München. Über 5 Jahre Erfahrung mit performanten Webprodukten, jetzt LLM-Features end-to-end: Prompts, Structured Outputs, RAG, Agents, Evals und das UI darüber.',
   },
   nav: {
-    home: 'Start',
-    about: 'Story',
-    skills: 'Tech-Stack',
-    experience: 'Weg',
-    projects: 'Arbeiten',
+    about: 'Über mich',
+    capabilities: 'Kompetenzen',
+    experience: 'Erfahrung',
+    projects: 'Projekte',
+    background: 'Werdegang',
     contact: 'Kontakt',
+    menu: 'Menü',
+    language: 'Sprache wechseln',
   },
   hero: {
-    chapter: 'FULL-STACK DEVELOPER',
+    status: 'Offen für AI-Engineering-Rollen',
     name: 'Sonali Hirave',
-    title: 'Full-Stack Engineer',
-    tagline: 'Skalierbare Webanwendungen vom Frontend bis zum Backend.',
+    role: 'Full-Stack AI Engineer',
+    headlineLead: 'Ich baue LLM-gestützte Produkte,',
+    headlineAccent: 'end-to-end.',
     description:
-      'Full-Stack Engineer mit über 5 Jahren Erfahrung in der Entwicklung skalierbarer, performanter Webanwendungen mit React, Vue.js, Next.js, Nuxt.js, TypeScript, Node.js und PostgreSQL. Erfahren in E-Commerce- und B2B-SaaS-Plattformen, mit Fokus auf Frontend-Architektur, Backend-Integrationen, SEO, SSR und skalierbare User Experiences für mehr als 5 Millionen Nutzer in über 20 Ländern.',
+      'Full-Stack AI Engineer mit über 5 Jahren Erfahrung in der Entwicklung skalierbarer, performanter Webprodukte. Heute baue ich LLM-Features von Prompts, Structured Outputs, RAG und Tool-Calling-Agents bis zu Evaluation und dem Streaming-UI darüber.',
     ctaWork: 'Meine Arbeit ansehen',
-    ctaContact: 'Sprechen wir',
+    ctaContact: 'Kontakt aufnehmen',
     location: 'München, Deutschland',
-    availability:
-      'Uneingeschränkte Arbeitserlaubnis · Keine Visumsunterstützung nötig',
-    frontendBadge: 'Frontend im Herzen',
-    fullStackBadge: 'Full-Stack aus Überzeugung',
+    availability: 'Keine Visumsunterstützung nötig',
+    stats: [
+      { label: 'Jahre Erfahrung mit Webprodukten', value: '5+' },
+      { label: 'Nutzer erreicht', value: '5 Mio.+' },
+      { label: 'Länder', value: '20+' },
+      { label: 'Ladezeit', value: '~10s → 2–3s' },
+    ],
+  },
+  trace: {
+    title: 'doratics / content-pipeline',
+    badge: 'Beispielhafter Ablauf',
+    promptLabel: 'task',
+    prompt: 'Erstelle eine FAQ-Seite für eine Bäckerei in München',
+    steps: [
+      {
+        tool: 'retrieve',
+        label: 'Auf Unternehmensdaten stützen',
+        detail: 'Speisekarte · Preisliste · Öffnungszeiten',
+      },
+      {
+        tool: 'generate',
+        label: 'Inhalte mit einem LLM entwerfen',
+        detail: 'Leistungsseite · Meta-Tags · FAQs',
+      },
+      {
+        tool: 'structure',
+        label: 'Validiertes JSON-LD ausgeben',
+        detail: 'FAQPage · LocalBusiness',
+      },
+      {
+        tool: 'evaluate',
+        label: 'Inhaltsqualität bewerten',
+        detail: 'Faktentreue · Relevanz · Tonalität',
+      },
+      {
+        tool: 'approve',
+        label: 'Human-in-the-Loop-Prüfung',
+        detail: 'nichts geht ohne Freigabe live',
+      },
+    ],
+    awaiting: 'Wartet auf Freigabe',
+    approve: 'Freigeben',
+    edit: 'Bearbeiten',
+    approved: 'Freigegeben',
+    outputLabel: 'output',
+    caption:
+      'Vereinfachte Darstellung der Content-Pipeline, die ich bei Doratics baue.',
   },
   about: {
-    chapter: 'Kapitel 02 — Die Story',
-    heading: 'Für Millionen entwickeln — Komponente für Komponente',
+    label: 'Über mich',
+    heading:
+      'Product Engineer auf dem Weg in die KI, mit Shipping-Erfahrung im Gepäck.',
     paragraphs: [
-      'Ich bin Frontend Engineer und liebe es, komplexe Produktideen in schnelle, zugängliche und wartbare Interfaces zu verwandeln. In den letzten fünf Jahren habe ich Features ausgeliefert, die von Millionen genutzt werden — von mehrsprachigen E-Commerce-Storefronts über Content-Workflows bis hin zu Finanz-Dashboards.',
-      'Mein Lieblingsort ist die Nahtstelle zwischen Design und Engineering: wiederverwendbare Komponentensysteme, Server-Side Rendering, Performance-Budgets und SEO, das wirklich etwas bewegt. Saubere Architektur ist mir wichtig — noch wichtiger ist mir, was Nutzer fühlen, wenn eine Seite im Bruchteil einer Sekunde lädt.',
-      'Heute baue ich Doratics, eine SEO-First Website-Plattform, und bleibe gleichzeitig hands-on im React- und Vue-Ökosystem, mit dem ich groß geworden bin.',
+      'Seit über 5 Jahren entwickle ich Webprodukte, die für viele Menschen schnell und zuverlässig funktionieren müssen, darunter mehrsprachige E-Commerce-Plattformen für mehr als 5 Millionen Nutzer in über 20 Ländern.',
+      'Heute baue ich LLM-gestützte Features end-to-end: Prompts, Structured Outputs, RAG und Tool-Calling-Agents, die Evals, die zeigen, ob sie funktionieren, und das Streaming-Interface, das Nutzer tatsächlich bedienen.',
+      'Meine Erfahrung in Frontend-Architektur, SSR und Performance lässt sich direkt auf die Latenz-, Kosten- und UX-Fragen übertragen, die darüber entscheiden, ob ein KI-Produkt nutzbar ist.',
     ],
-    facts: [
-      { label: 'Jahre Erfahrung', value: '5+' },
-      { label: 'Erreichte Nutzer', value: '5 Mio.+' },
-      { label: 'Länder', value: '20+' },
-      { label: 'Ladezeit reduziert', value: '10s → 2-3s' },
+    nowLabel: 'Aktuell',
+    now: [
+      {
+        title: 'Turing College — AI Engineering',
+        detail: 'Python, LLM-APIs, LangChain, RAG, Agents und Evals mit LangSmith.',
+      },
+      {
+        title: 'Doratics — KI-Layer',
+        detail:
+          'Angewendet auf einen SEO-First Website-Builder für lokale Unternehmen.',
+      },
     ],
+    photoAlt: 'Porträt von Sonali Hirave',
   },
-  skills: {
-    chapter: 'MEIN TECH-STACK',
-    heading: 'Womit ich arbeite',
+  capabilities: {
+    label: 'Kompetenzen',
+    heading: 'Der ganze Weg vom Prompt zum Produkt.',
     intro:
-      'Ein moderner Frontend-First-Stack, ergänzt durch Backend-, Cloud- und KI-Tools, um skalierbare Produkte von der Idee bis zur Produktion umzusetzen.',
-    groups: [
-      {
-        label: 'Frontend',
-        items: [
-          'React',
-          'Vue.js',
-          'Next.js',
-          'Nuxt.js',
-          'TypeScript',
-          'JavaScript (ES6+)',
-          'React Hooks',
-          'Context API',
-          'Pinia',
-          'Vuex',
-          'Vite',
-          'Tailwind CSS',
-          'HTML5',
-          'CSS3',
-          'Responsive Design',
-        ],
-      },
-      {
-        label: 'Backend & Datenbanken',
-        items: [
-          'Node.js',
-          'Nitro.js',
-          'REST APIs',
-          'GraphQL',
-          'MySQL',
-          'PostgreSQL',
-          'Prisma',
-          'Drizzle ORM',
-        ],
-      },
-      {
-        label: 'Tools & Workflow',
-        items: [
-          'Jest',
-          'Vitest',
-          'Cypress',
-          'Turborepo',
-          'Datadog',
-          'Git',
-          'ESLint',
-          'Prettier',
-          'pnpm',
-          'Jira',
-          'Figma',
-        ],
-      },
-      {
-        label: 'DevOps & Deployment',
-        items: ['Docker', 'GitLab CI/CD', 'GitHub', 'Actions', 'Datadog'],
-      },
-      {
-        label: 'Performance & SEO',
-        items: [
-          'Server-Side Rendering (SSR)',
-          'SEO-Optimierung',
-          'Performance-Optimierung',
-        ],
-      },
-      {
-        label: 'KI-gestützte Entwicklung',
-        items: ['ChatGPT', 'Cursor', 'Claude'],
-      },
-    ],
-  },
-  certifications: {
-    chapter: 'ZERTIFIKATE',
-    heading: 'Lernen, nächstes Level',
-    intro:
-      'Ein paar Meilensteine aus meiner stetigen Reise, Neugier in bessere Web-Erlebnisse zu verwandeln.',
-    verifyLabel: 'Verifizieren',
-    pdfLabel: 'PDF',
+      'Ein LLM-Feature ist nur so gut wie das System drumherum. An diesen Bausteinen arbeite ich.',
     items: [
       {
-        issuer: 'META VIA COURSERA',
-        name: 'Meta React Spezialisierung',
-        verifyUrl:
-          'https://www.coursera.org/account/accomplishments/verify/3IFWLELH8AAB',
+        id: 'llm',
+        title: 'LLM-Features',
+        description:
+          'Prompt-Design und LLM-API-Integration für Content-Generierung: Leistungsseiten, Meta-Tags und FAQs.',
+        tags: ['OpenAI', 'Anthropic', 'Prompting'],
       },
+      {
+        id: 'structured',
+        title: 'Structured Outputs',
+        description:
+          'Schema-gebundene Generierung mit Validierung, etwa LocalBusiness- und FAQ-JSON-LD, das korrekt sein muss.',
+        tags: ['JSON Schema', 'JSON-LD', 'Validierung'],
+      },
+      {
+        id: 'rag',
+        title: 'Retrieval (RAG)',
+        description:
+          'Generierte Inhalte stützen sich auf echte Unternehmensdaten wie Speisekarten und Preislisten statt auf Vermutungen.',
+        tags: ['Embeddings', 'Chunking', 'Retrieval'],
+      },
+      {
+        id: 'agents',
+        title: 'Tool-Calling-Agents',
+        description:
+          'Agents, die über Tools handeln, mit Human-in-the-Loop-Freigabe, bevor etwas angewendet wird.',
+        tags: ['LangChain', 'Tool Use', 'Human-in-the-Loop'],
+      },
+      {
+        id: 'evals',
+        title: 'Evals',
+        description:
+          'Automatisierte Prüfungen der Inhaltsqualität, damit Änderungen an Prompts und Modellen gemessen statt geschätzt werden.',
+        tags: ['LangSmith', 'Quality Scoring', 'Regressionstests'],
+      },
+      {
+        id: 'ui',
+        title: 'UI für KI-Produkte',
+        description:
+          'Streaming-Antworten und schnelle, serverseitig gerenderte Interfaces — hier zahlen sich fünf Jahre Frontend-Arbeit aus.',
+        tags: ['Streaming', 'SSR', 'Performance'],
+      },
+    ],
+    stackHeading: 'Stack',
+    groups: [
+      { label: 'KI', items: SKILL_ITEMS.ai },
+      { label: 'Frontend', items: SKILL_ITEMS.frontend },
+      { label: 'Backend & Daten', items: SKILL_ITEMS.backend },
+      { label: 'Infra & Tooling', items: SKILL_ITEMS.infra },
     ],
   },
   experience: {
-    chapter: 'BERUFSERFAHRUNG',
-    heading: 'Wo ich Wirkung erzielt habe',
-    intro: 'Erfahrung in E-Commerce, B2B, SaaS und produktübergreifenden Teams',
+    label: 'Erfahrung',
+    heading: 'Wo ich Wirkung erzielt habe.',
+    intro:
+      'E-Commerce im großen Maßstab, ein Early-Stage-Startup und mein eigenes Produkt.',
     items: [
       {
         company: 'Doratics',
         url: 'https://doratics.com',
-        role: 'Mitgründerin & Full-Stack Engineer',
-        period: 'Okt 2025 — Heute',
-        location: 'SEO-optimierter Website-Builder',
+        role: 'Full-Stack AI Engineer & Gründerin',
+        period: 'Apr 2025 — Heute',
+        location: 'München, Deutschland',
         bullets: [
-          'Entwicklung einer produktionsreifen SEO-First Website-Plattform mit Nuxt.js, Tailwind CSS, Nitro.js, Drizzle ORM und Cloudflare (Pages, D1, R2).',
-          'Verbesserung von Frontend-Performance, SEO und skalierbarer Content-Generierung durch SSR, Caching-Strategien und effiziente Rendering-Prozesse.',
-          'Etablierung einer modernen Monorepo-Architektur, um Wartbarkeit, Skalierbarkeit und Entwicklerproduktivität zu verbessern.',
-          'Konzeption und Umsetzung wiederverwendbarer UI-Komponenten, dynamischer Seitengenerierung und eines flexiblen CMS, damit Agenturen und lokale Unternehmen SEO-optimierte Websites effizient erstellen können.',
+          'Entwicklung einer produktionsreifen SEO-First Website-Plattform für lokale Unternehmen mit Nuxt.js, TypeScript, Tailwind CSS, Nitro.js, Drizzle ORM und Cloudflare (Pages, D1, R2).',
+          'Konzeption und Entwicklung des KI-Layers der Plattform: LLM-Content-Generierung für Leistungsseiten, Meta-Tags und FAQs sowie Structured-Output-JSON-LD-Schema (LocalBusiness / FAQ) mit Validierung.',
+          'Roadmap in aktiver Entwicklung: RAG über Unternehmensdaten (Speisekarten, Preislisten) zur Fundierung der Inhalte, ein SEO-Audit-Agent mit Human-in-the-Loop-Freigabe und automatisierte Evals für die Inhaltsqualität.',
+          'Verbesserung von Performance und SEO durch Server-Side Rendering, Caching und effizientes Rendering sowie Aufbau einer Monorepo-Architektur (Turborepo, pnpm) für bessere Wartbarkeit.',
         ],
+        stack: DORATICS_STACK,
       },
       {
         company: 'Expondo GmbH',
@@ -602,12 +863,13 @@ const de: ContentShape = {
         period: 'Mär 2022 — Mär 2025',
         location: 'Berlin, Deutschland',
         bullets: [
-          'Entwicklung und Optimierung skalierbarer, mehrsprachiger E-Commerce-Plattformen mit Vue.js, Nuxt.js und TypeScript für mehr als 5 Millionen Nutzer in über 20 Ländern.',
-          'Verbesserung der Ladezeiten von ca. 10 Sekunden auf 2–3 Sekunden durch SSR, Caching-Strategien und die Optimierung von GraphQL-APIs.',
-          'Entwicklung wiederverwendbarer Komponenten und skalierbarer Frontend-Architekturen für internationale Webanwendungen.',
-          'Umsetzung zentraler Produktfeatures in enger Zusammenarbeit mit Design-, Backend- und Produktteams.',
-          'Sicherstellung hoher Softwarequalität durch Code Reviews, automatisierte Tests mit Jest und Cypress sowie agile Entwicklungsprozesse.',
+          'Entwicklung und Optimierung skalierbarer, mehrsprachiger E-Commerce-Plattformen mit Vue.js, Nuxt.js, TypeScript und Tailwind CSS für mehr als 5 Millionen Nutzer in über 20 Ländern.',
+          'Reduzierung der Ladezeiten von ca. 10 Sekunden auf 2–3 Sekunden durch SSR, Caching-Strategien und die Optimierung von GraphQL-APIs.',
+          'Entwicklung wiederverwendbarer UI-Komponenten und skalierbarer Frontend-Architekturen für komplexe internationale Webanwendungen.',
+          'Umsetzung zentraler Produktfeatures mit Design-, Backend- und cross-funktionalen Produktteams in einem agilen Umfeld.',
+          'Qualitätssicherung durch Code Reviews und automatisierte Tests mit Jest und Cypress.',
         ],
+        stack: EXPONDO_STACK,
       },
       {
         company: 'WittyPen Pvt. Ltd.',
@@ -616,11 +878,12 @@ const de: ContentShape = {
         period: 'Jul 2020 — Feb 2022',
         location: 'Indien · Remote aus Deutschland',
         bullets: [
-          'Umsetzung von End-to-End-Produktfunktionen für eine Content-Creation-Plattform mit Vue.js, Tailwind CSS, Laravel REST APIs und MySQL in einem Early-Stage-Startup.',
-          'Neugestaltung und Modernisierung der Plattform-Oberfläche durch die Migration bestehender Bootstrap-Komponenten zu Tailwind CSS.',
-          'Entwicklung Kanban-basierter Content-Workflows sowie Erweiterung des TinyMCE-Editors um Kommentierungs- und Inline-Editing-Funktionen.',
-          'Neugestaltung und Entwicklung der Unternehmenswebsite von der Designphase bis zur Produktivsetzung sowie Aufbau einer dedizierten Karriereseite.',
+          'Umsetzung von End-to-End-Features für eine Content-Creation-Plattform mit Vue.js, Tailwind CSS, Laravel REST APIs, MySQL und Docker in einem Early-Stage-Startup.',
+          'Modernisierung der Plattform-Oberfläche durch die Migration von Bootstrap-Komponenten zu Tailwind CSS.',
+          'Entwicklung Kanban-basierter Content-Workflows und Erweiterung des TinyMCE-Editors um Kommentar- und Inline-Editing-Funktionen.',
+          'Konzeption und Entwicklung der Unternehmenswebsite von der Idee bis zur Produktion, inklusive Karriereseite.',
         ],
+        stack: WITTYPEN_STACK,
       },
       {
         company: 'Enthralltech Pvt. Ltd.',
@@ -630,89 +893,123 @@ const de: ContentShape = {
         location: 'Indien',
         bullets: [
           'Erstellung von E-Learning-Inhalten, interaktiven Trainingsmaterialien und digitalen Medien für internationale Unternehmen, darunter Microsoft und PepsiCo.',
-          'Gestaltung und Entwicklung von UI-Elementen, Grafiken und Multimedia-Inhalten für Online-Lernplattformen.',
-          'Entwicklung interaktiver Lernmodule mit HTML, CSS und JavaScript.',
-          'Zusammenarbeit mit Instructional Design, Content- und Entwicklungsteams, um ansprechende digitale Lernerlebnisse umzusetzen.',
+          'Entwicklung interaktiver Lernmodule mit HTML, CSS und JavaScript sowie Gestaltung von UI-Elementen und Grafiken für Online-Lernplattformen.',
         ],
+        stack: ENTHRALL_STACK,
       },
     ],
   },
   projects: {
-    chapter: 'MEINE ARBEIT',
-    heading: 'Dinge, die ich gebaut habe',
+    label: 'Projekte',
+    heading: 'Ausgewählte Arbeiten.',
     intro:
-      'Eine Auswahl von Projekten, die meine Herangehensweise an Produktentwicklung und Software Engineering zeigen.',
+      'Eine Plattform, deren KI-Layer ich baue, eine KI-App, die ich gebaut und deployt habe, und die Webplattformen, an denen ich gelernt habe, wie man ausliefert.',
+    featuredLabel: 'Im Fokus · KI',
+    visitLabel: 'Ansehen',
+    demoLabel: 'Live-Demo',
+    codeLabel: 'Code',
+    statusLabels: {
+      live: 'Live',
+      building: 'In Arbeit',
+      roadmap: 'Roadmap',
+    },
+    featured: {
+      name: 'Doratics',
+      tagline: 'SEO-First Website-Builder für lokale Unternehmen',
+      year: '2025 — Heute',
+      description:
+        'Eine produktive Plattform, mit der lokale Unternehmen schnelle, suchmaschinenoptimierte Websites starten. Ich habe die Plattform gebaut und ergänze sie jetzt um den KI-Layer, der Inhalte schreibt, strukturiert und prüft.',
+      url: 'https://doratics.com',
+      stack: DORATICS_STACK,
+      featuresHeading: 'Plattform & KI-Layer',
+      features: [
+        {
+          title: 'Website-Plattform',
+          detail:
+            'SSR, Caching und ein Turborepo-Monorepo auf Cloudflare Pages, D1 und R2.',
+          status: 'live',
+        },
+        {
+          title: 'LLM-Content-Generierung',
+          detail: 'Leistungsseiten, Meta-Tags und FAQs.',
+          status: 'building',
+        },
+        {
+          title: 'Structured-Output-Schema',
+          detail: 'LocalBusiness- / FAQ-JSON-LD mit Validierung.',
+          status: 'building',
+        },
+        {
+          title: 'RAG über Unternehmensdaten',
+          detail:
+            'Speisekarten und Preislisten fundieren die generierten Inhalte.',
+          status: 'roadmap',
+        },
+        {
+          title: 'SEO-Audit-Agent',
+          detail:
+            'Schlägt Korrekturen vor und wendet sie erst nach Freigabe an.',
+          status: 'roadmap',
+        },
+        {
+          title: 'Automatisierte Evals',
+          detail: 'Bewertung der Inhaltsqualität.',
+          status: 'roadmap',
+        },
+      ],
+    },
+    moreHeading: 'Weitere Projekte',
     items: [
       {
-        name: 'Findesk - Full-Stack-Finanzdashboard',
+        name: 'Hoot — KI-Interviewvorbereitung',
+        kind: 'AI',
         year: '2026',
-        stack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'PostgreSQL'],
+        stack: HOOT_STACK,
         description:
-          'Ein Full-Stack-Finanzdashboard mit Next.js App Router und Server Actions — mit Authentifizierung, Analyse-Dashboards, Suchfunktionen und Pagination, gestützt auf PostgreSQL mit wiederverwendbaren, responsiven UI-Komponenten in Tailwind CSS.',
-        url: 'https://findsk.vercel.app',
+          'Ein KI-Interviewcoach für technische Rollen: geführte oder simulierte Übungsinterviews mit bewertetem Feedback, ein Stellenanzeigen-Analyzer mit Vorbereitungsplan und Bewertungsraster der Interviewer sowie ein Resume-Builder, der den Lebenslauf auf eine Stelle zuschneidet. Jeder Prompt durchläuft einen Security Guard (Regeln, LLM-Klassifikator und Output-Prüfung) mit Ausgabenlimits pro Nutzer. Entstanden im AI-Engineering-Programm des Turing College.',
+        url: HOOT_URL,
+        repoUrl: HOOT_REPO,
       },
       {
-        name: 'Doratics — SEO-First Website-Builder',
-        year: '2025-2026',
-        stack: [
-          'Nuxt.js',
-          'Vue.js',
-          'Tailwind CSS',
-          'TypeScript',
-          'SQLite',
-          'Nitro.js',
-          'Drizzle ORM',
-          'Cloudflare',
-        ],
+        name: 'Expondo — Mehrsprachige E-Commerce-Plattform',
+        kind: 'Web',
+        year: '2022 — 2025',
+        stack: ['Vue 3', 'Nuxt.js', 'TypeScript', 'GraphQL', 'CommerceTools'],
         description:
-          'Eine produktionsreife Plattform für SEO-optimierte Websites, gebaut auf einem modernen Monorepo mit SSR, intelligentem Caching und skalierbarer Content-Generierung auf Cloudflare Pages, D1 und R2.',
-        url: 'https://doratics.com',
-      },
-      {
-        name: 'Personal Portfolio',
-        year: '2026',
-        stack: ['Next.js', 'React', 'Tailwind CSS', 'TypeScript', 'Motion'],
-        description:
-          'Konzeption und Entwicklung eines modernen Portfolios, das meine Arbeit, technischen Fähigkeiten und Engineering-Herangehensweise zeigt — mit starkem Fokus auf Performance, responsives Design, Barrierefreiheit und eine durchdachte User Experience.',
-        url: 'https://portfolio.hiravesonali.workers.dev',
-      },
-      {
-        name: 'Expondo - Mehrsprachige E-Commerce-Plattform',
-        year: '2022–2025',
-        stack: [
-          'Vue 3',
-          'Nuxt.js',
-          'TypeScript',
-          'Tailwind CSS',
-          'GraphQL',
-          'Vue Storefront',
-          'CommerceTools',
-        ],
-        description:
-          'Skalierbare, mehrsprachige Storefronts für mehr als 5 Millionen Nutzer in über 20 Ländern — Ladezeiten von ca. 10s auf 2–3s reduziert durch SSR, Caching und GraphQL-Optimierung.',
+          'Mehrsprachige Storefronts für mehr als 5 Millionen Nutzer in über 20 Ländern. Ladezeiten von ca. 10s auf 2–3s reduziert durch SSR, Caching und GraphQL-Optimierung.',
         url: 'https://www.expondo.de',
       },
       {
-        name: 'Wittypen – Content-Creation-Plattform',
-        year: '2020–2022',
-        stack: [
-          'Vue.js',
-          'TypeScript',
-          'Tailwind CSS',
-          'REST APIs',
-          'Laravel',
-          'MySQL',
-          'Docker',
-        ],
+        name: 'Findesk — Full-Stack-Finanzdashboard',
+        kind: 'Web',
+        year: '2026',
+        stack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'PostgreSQL'],
         description:
-          'Umsetzung von End-to-End-Produktfeatures für eine Content-Creation-Plattform, Modernisierung des Frontends durch die Migration von Bootstrap zu Tailwind CSS sowie Entwicklung kollaborativer Workflows und Editor-Funktionen für Autorinnen, Autoren und Content-Teams.',
+          'Ein Finanzdashboard mit Next.js App Router und Server Actions: Authentifizierung, Analysen, Suche und Pagination auf Basis von PostgreSQL.',
+        url: 'https://findsk.vercel.app',
+      },
+      {
+        name: 'WittyPen — Content-Creation-Plattform',
+        kind: 'Web',
+        year: '2020 — 2022',
+        stack: ['Vue.js', 'Tailwind CSS', 'Laravel', 'MySQL', 'Docker'],
+        description:
+          'End-to-End-Features für eine Content-Plattform: Kanban-Workflows, ein erweiterter TinyMCE-Editor mit Kommentaren und die Migration von Bootstrap zu Tailwind.',
         url: 'https://wittypen.com',
       },
     ],
   },
-  education: {
-    heading: 'Ausbildung',
-    items: [
+  background: {
+    label: 'Werdegang',
+    heading: 'Ausbildung und Nachweise.',
+    educationHeading: 'Ausbildung',
+    education: [
+      {
+        degree: 'AI Engineering Program',
+        school: 'Turing College',
+        period: '2026 — Heute',
+        current: true,
+      },
       {
         degree: 'Diplom in Grafikdesign und Webentwicklung',
         school: 'Arena Animation, Pune, Indien',
@@ -724,6 +1021,16 @@ const de: ContentShape = {
         period: 'Jan 2012 — Apr 2015',
       },
     ],
+    currentLabel: 'Laufend',
+    certificationsHeading: 'Zertifikate',
+    certifications: [
+      {
+        issuer: 'Meta via Coursera',
+        name: 'Meta React Spezialisierung',
+        verifyUrl: REACT_CERT_URL,
+      },
+    ],
+    verifyLabel: 'Verifizieren',
     languagesHeading: 'Sprachen',
     languages: [
       { name: 'Englisch', level: 'Fließend' },
@@ -737,21 +1044,21 @@ const de: ContentShape = {
     ],
   },
   contact: {
-    chapter: 'LASS UNS VERNETZEN',
-    heading: 'Lass uns etwas Sinnvolles bauen',
+    label: 'Kontakt',
+    heading: 'Sie bauen etwas mit LLMs? Sprechen wir.',
     intro:
-      'Offen für Frontend- und Full-Stack-Rollen, in denen Performance, saubere Architektur und großartige User Experience zählen. Schreib mir — ich freue mich zu hören, was du baust.',
+      'Ich bin offen für AI-Engineering- und Full-Stack-AI-Rollen, in denen Modell, Produkt und User Experience gleichermaßen zählen.',
     emailLabel: 'E-Mail',
-    email: 'hiravesonali@gmail.com',
-    phone: '+49 15145093853',
-    github: 'https://github.com/hiravesonali',
-    linkedin: 'https://www.linkedin.com/in/sonali-hirave',
+    email: EMAIL,
+    phone: PHONE,
+    github: GITHUB,
+    linkedin: LINKEDIN,
     githubLabel: 'GitHub',
     linkedinLabel: 'LinkedIn',
     phoneLabel: 'Telefon',
   },
   footer: {
-    built: 'Gebaut mit Next.js, TypeScript & Framer Motion.',
+    built: 'Gebaut mit Next.js, TypeScript und Tailwind CSS.',
     rights: 'Alle Rechte vorbehalten.',
   },
 };

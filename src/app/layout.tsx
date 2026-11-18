@@ -1,32 +1,41 @@
-import type { Metadata } from "next";
-import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/i18n/LanguageProvider";
 import { SmoothScroll } from "@/components/SmoothScroll";
+import { content } from "@/content";
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
-  subsets: ["latin"],
-  display: "swap",
-  axes: ["SOFT", "WONK", "opsz"],
-});
-
-const plusJakarta = Plus_Jakarta_Sans({
-  variable: "--font-plus-jakarta",
+const geistSans = Geist({
+  variable: "--font-geist-sans",
   subsets: ["latin"],
   display: "swap",
 });
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument-serif",
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
+const { title, description } = content.en.meta;
 
 export const metadata: Metadata = {
-  title: "Sonali Hirave — Frontend Engineer",
-  description:
-    "Frontend Engineer with 5+ years building scalable, high-performance web apps with React, Vue, Next.js, Nuxt.js and TypeScript.",
-  openGraph: {
-    title: "Sonali Hirave — Frontend Engineer",
-    description:
-      "Frontend Engineer building scalable, high-performance web apps for millions of users.",
-    type: "website",
-  },
+  title,
+  description,
+  openGraph: { title, description, type: "website" },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#08090a",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({
@@ -35,7 +44,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${plusJakarta.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} h-full antialiased`}
     >
       <body className="min-h-full">
         <LanguageProvider>

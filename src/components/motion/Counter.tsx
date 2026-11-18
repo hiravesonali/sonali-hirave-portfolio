@@ -18,10 +18,7 @@ export function Counter({ value }: { value: string }) {
   const suffix = match ? match[2] : "";
 
   useEffect(() => {
-    if (!inView || target === null) {
-      if (target === null) setDisplay(value);
-      return;
-    }
+    if (!inView || target === null) return;
     const duration = 1200;
     const start = performance.now();
     let frame = 0;

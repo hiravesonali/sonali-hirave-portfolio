@@ -1,105 +1,174 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useLanguage } from "@/i18n/LanguageProvider";
 import { SectionHeader } from "@/components/SectionHeader";
-import { StaggerGroup, StaggerItem } from "@/components/motion/Reveal";
-import type { Project } from "@/content";
+import { Reveal, StaggerGroup, StaggerItem } from "@/components/motion/Reveal";
+import type { FeatureStatus, Project } from "@/content";
 
-const cardTints = [
-  "from-peppa/30 to-coral/25",
-  "from-sky/35 to-grape/20",
-  "from-mint/30 to-butter/25",
-];
+const statusStyles: Record<FeatureStatus, string> = {
+  live: "border-accent/30 bg-accent/10 text-accent",
+  building: "border-line bg-raised text-fg",
+  roadmap: "border-line border-dashed text-faint",
+};
 
-function ProjectCard({ project, index }: { project: Project; index: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const rx = useMotionValue(0);
-  const ry = useMotionValue(0);
-  const srx = useSpring(rx, { stiffness: 200, damping: 18 });
-  const sry = useSpring(ry, { stiffness: 200, damping: 18 });
-  const rotateX = useTransform(srx, [-0.5, 0.5], ["7deg", "-7deg"]);
-  const rotateY = useTransform(sry, [-0.5, 0.5], ["-7deg", "7deg"]);
-
-  const onMove = (e: React.MouseEvent) => {
-    const el = ref.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    rx.set((e.clientY - r.top) / r.height - 0.5);
-    ry.set((e.clientX - r.left) / r.width - 0.5);
-  };
-  const onLeave = () => {
-    rx.set(0);
-    ry.set(0);
-  };
-
-  const Wrapper = project.url ? motion.a : motion.div;
+function ProjectCard({
+  project,
+  labels,
+}: {
+  project: Project;
+  labels: { visit: string; demo: string; code: string };
+}) {
+  const isAi = project.kind === "AI";
+  const links = [
+    project.url && {
+      href: project.url,
+      label: project.repoUrl ? labels.demo : labels.visit,
+    },
+    project.repoUrl && { href: project.repoUrl, label: labels.code },
+  ].filter(Boolean) as { href: string; label: string }[];
 
   return (
-    <StaggerItem>
-      <Wrapper
-        {...(project.url
-          ? { href: project.url, target: "_blank", rel: "noopener noreferrer" }
-          : {})}
-        ref={ref as never}
-        onMouseMove={onMove}
-        onMouseLeave={onLeave}
-        style={{ rotateX, rotateY, transformPerspective: 1000 }}
-        className={`group block h-full rounded-[2rem] bg-gradient-to-br ${cardTints[index % cardTints.length]} p-1.5 shadow-card`}
-      >
-        <div className="flex h-full flex-col rounded-[1.6rem] bg-cream/95 p-7">
-          <div className="flex items-start justify-between gap-3">
-            <span className="font-display text-sm font-semibold text-peppa-deep">
-              {project.year}
-            </span>
-            {project.url && (
-              <span className="grid h-9 w-9 place-items-center rounded-full bg-white text-ink shadow-sm transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
-                ↗
-              </span>
-            )}
-          </div>
-
-          <h3 className="mt-3 font-display text-2xl font-semibold leading-tight text-ink">
-            {project.name}
-          </h3>
-
-          <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-soft">
-            {project.description}
-          </p>
-
-          <div className="mt-5 flex flex-wrap gap-2">
-            {project.stack.map((s) => (
-              <span
-                key={s}
-                className="rounded-full bg-white/80 px-2.5 py-1 text-xs font-medium text-ink shadow-sm ring-1 ring-ink/5"
-              >
-                {s}
-              </span>
-            ))}
-          </div>
+    <article
+      className={`flex h-full flex-col rounded-xl border bg-surface p-6 transition-colors duration-300 sm:p-7 ${
+        isAi
+          ? "border-accent/30 hover:border-accent/60"
+          : "border-line hover:border-faint"
+      }`}
+    >
+      <p className="flex items-center gap-2.5 font-mono text-xs text-faint">
+        <span
+          className={
+            isAi
+              ? "rounded border border-accent/30 bg-accent/10 px-1.5 py-0.5 text-[10px] uppercase tracking-wider text-accent"
+              : ""
+          }
+        >
+          {project.kind}
+        </span>
+        <span>{isAi ? project.year : `· ${project.year}`}</span>
+      </p>
+      <h4 className="mt-5 text-lg font-medium leading-snug tracking-tight text-fg">
+        {project.name}
+      </h4>
+      <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">
+        {project.description}
+      </p>
+      <p className="mt-6 font-mono text-[11px] leading-relaxed text-faint">
+        {project.stack.join(" · ")}
+      </p>
+      {links.length > 0 && (
+        <div className="mt-6 flex flex-wrap gap-2.5 border-t border-line pt-5">
+          {links.map((l) => (
+            <a
+              key={l.href}
+              href={l.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-9 items-center gap-1.5 rounded-md border border-line px-3 text-sm font-medium text-fg transition-colors hover:border-accent hover:text-accent"
+            >
+              {l.label} <span aria-hidden>↗</span>
+            </a>
+          ))}
         </div>
-      </Wrapper>
-    </StaggerItem>
+      )}
+    </article>
   );
 }
 
 export function Projects() {
   const { t } = useLanguage();
+  const p = t.projects;
+  const f = p.featured;
 
   return (
-    <section id="work" className="relative py-24 sm:py-32">
+    <section id="projects" className="border-t border-line py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeader
-          chapter={t.projects.chapter}
-          heading={t.projects.heading}
-          intro={t.projects.intro}
-          align="center"
+          index="04"
+          label={p.label}
+          heading={p.heading}
+          intro={p.intro}
         />
 
-        <StaggerGroup className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {t.projects.items.map((p, i) => (
-            <ProjectCard key={p.name} project={p} index={i} />
+        {/* Featured case study */}
+        <Reveal className="mt-14">
+          <article className="grid overflow-hidden rounded-xl border border-line bg-surface lg:grid-cols-2">
+            <div className="flex flex-col p-6 sm:p-9">
+              <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent">
+                {p.featuredLabel}
+              </p>
+              <h3 className="mt-5 text-3xl font-medium tracking-tight text-fg sm:text-4xl">
+                {f.name}
+              </h3>
+              <p className="mt-2 text-base text-fg/80">{f.tagline}</p>
+              <p className="mt-1 font-mono text-xs text-faint">{f.year}</p>
+
+              <p className="mt-6 flex-1 text-[0.95rem] leading-relaxed text-muted">
+                {f.description}
+              </p>
+
+              <p className="mt-6 font-mono text-[11px] leading-relaxed text-faint">
+                {f.stack.join(" · ")}
+              </p>
+
+              <a
+                href={f.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-7 inline-flex h-10 w-fit items-center gap-2 rounded-md border border-line px-4 text-sm font-medium text-fg transition-colors hover:border-accent hover:text-accent"
+              >
+                {p.visitLabel} doratics.com <span aria-hidden>↗</span>
+              </a>
+            </div>
+
+            <div className="border-t border-line bg-bg/60 p-6 sm:p-9 lg:border-l lg:border-t-0">
+              <h4 className="font-mono text-xs uppercase tracking-[0.2em] text-faint">
+                {f.featuresHeading}
+              </h4>
+              <ul className="mt-4 divide-y divide-line">
+                {f.features.map((feat) => (
+                  <li
+                    key={feat.title}
+                    className="flex items-start justify-between gap-4 py-3.5"
+                  >
+                    <div className="min-w-0">
+                      <p className="text-sm font-medium text-fg">
+                        {feat.title}
+                      </p>
+                      <p className="mt-0.5 text-sm leading-relaxed text-muted">
+                        {feat.detail}
+                      </p>
+                    </div>
+                    <span
+                      className={`mt-0.5 shrink-0 whitespace-nowrap rounded border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider ${statusStyles[feat.status]}`}
+                    >
+                      {p.statusLabels[feat.status]}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </article>
+        </Reveal>
+
+        {/* More projects */}
+        <Reveal className="mt-16">
+          <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-faint">
+            {p.moreHeading}
+          </h3>
+        </Reveal>
+        <StaggerGroup className="mt-5 grid gap-5 md:grid-cols-2">
+          {p.items.map((project) => (
+            <StaggerItem key={project.name} className="h-full">
+              <ProjectCard
+                project={project}
+                labels={{
+                  visit: p.visitLabel,
+                  demo: p.demoLabel,
+                  code: p.codeLabel,
+                }}
+              />
+            </StaggerItem>
           ))}
         </StaggerGroup>
       </div>

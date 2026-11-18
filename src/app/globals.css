@@ -1,100 +1,97 @@
 @import "tailwindcss";
 
 /* =====================================================================
-   THEME — "Peppa" light palette
-   A warm, story-book light theme: cream canvas, bubblegum-pink hero
-   accents, coral, sky blue, mint and butter as supporting colours.
+   THEME — dark technical
+   Near-black canvas, neutral greys, one sharp lime accent.
+   Sans for reading, mono for labels and data, serif italic for emphasis.
    ===================================================================== */
 @theme {
-  /* Canvas */
-  --color-cream: #fff8f3;
-  --color-cream-deep: #fef0e9;
-  --color-ink: #3a2a3f; /* deep plum-charcoal for text */
-  --color-ink-soft: #6b5a70;
+  --color-bg: #08090a;
+  --color-surface: #0e1012;
+  --color-raised: #15181b;
+  --color-line: #23272b;
+  --color-fg: #edeef0;
+  --color-muted: #a0a6ad;
+  --color-faint: #70767d;
+  --color-accent: #c8f560;
+  --color-accent-ink: #0c1002;
 
-  /* Peppa family */
-  --color-peppa: #f3a9cf; /* Peppa pink */
-  --color-peppa-deep: #ec6fa9;
-  --color-coral: #ff7a8a; /* warm coral / salmon */
-  --color-sky: #8fcfe8; /* George's sky blue */
-  --color-mint: #a8e0c5; /* soft mint */
-  --color-butter: #ffd97d; /* butter yellow */
-  --color-grape: #b794d4; /* soft purple */
-
-  --font-display: var(--font-fraunces);
-  --font-sans: var(--font-plus-jakarta);
-
-  --shadow-soft: 0 10px 40px -12px rgba(236, 111, 169, 0.28);
-  --shadow-card: 0 18px 50px -20px rgba(58, 42, 63, 0.22);
-}
-
-:root {
-  --background: var(--color-cream);
-  --foreground: var(--color-ink);
-}
-
-* {
-  border-color: rgba(58, 42, 63, 0.08);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-instrument-serif);
 }
 
 html {
   scroll-behavior: auto; /* Lenis handles smoothing */
   -webkit-font-smoothing: antialiased;
+  color-scheme: dark;
+  background: var(--color-bg);
 }
 
 body {
-  background:
-    radial-gradient(1200px 600px at 100% -10%, rgba(143, 207, 232, 0.18), transparent 60%),
-    radial-gradient(900px 500px at -10% 20%, rgba(243, 169, 207, 0.22), transparent 55%),
-    radial-gradient(800px 600px at 50% 120%, rgba(168, 224, 197, 0.16), transparent 60%),
-    var(--color-cream);
-  color: var(--foreground);
+  background: var(--color-bg);
+  color: var(--color-fg);
   font-family: var(--font-sans), system-ui, sans-serif;
   overflow-x: hidden;
 }
 
-/* Selection */
 ::selection {
-  background: var(--color-peppa);
-  color: #fff;
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
 }
 
-/* Custom scrollbar */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--color-cream-deep);
+  background: var(--color-bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-peppa);
+  background: var(--color-line);
   border-radius: 9999px;
-  border: 2px solid var(--color-cream-deep);
+  border: 2px solid var(--color-bg);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-faint);
 }
 
-/* Utility: blob / soft floaty shapes */
-@keyframes float-slow {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-22px) rotate(6deg); }
+/* Faint engineering grid that fades out towards the edges. */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.045) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, #000 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, #000 30%, transparent 75%);
 }
-@keyframes float-slower {
-  0%, 100% { transform: translateY(0) translateX(0); }
-  50% { transform: translateY(18px) translateX(-12px); }
-}
-.animate-float-slow { animation: float-slow 9s ease-in-out infinite; }
-.animate-float-slower { animation: float-slower 12s ease-in-out infinite; }
 
-/* Gradient text helper */
-.text-gradient {
-  background: linear-gradient(120deg, var(--color-peppa-deep), var(--color-coral) 55%, var(--color-grape));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+/* Soft accent glow behind the hero. */
+.bg-glow {
+  background: radial-gradient(
+    600px 320px at 75% 20%,
+    rgb(200 245 96 / 0.09),
+    transparent 70%
+  );
+}
+
+@keyframes caret-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.animate-caret {
+  animation: caret-blink 1.1s steps(1) infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-float-slow,
-  .animate-float-slower {
+  .animate-caret,
+  .animate-spin,
+  .animate-ping {
     animation: none;
   }
 }
