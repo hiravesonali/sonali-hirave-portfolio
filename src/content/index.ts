@@ -575,14 +575,9 @@ const en: ContentShape = {
           status: 'live',
         },
         {
-          title: 'SEO audit agent',
-          detail: 'Suggests fixes, applies them only after human approval.',
-          status: 'roadmap',
-        },
-        {
           title: 'Automated evals',
           detail: 'Content quality scoring.',
-          status: 'roadmap',
+          status: 'live',
         },
       ],
     },
@@ -970,15 +965,9 @@ const de: ContentShape = {
           status: 'live',
         },
         {
-          title: 'SEO-Audit-Agent',
-          detail:
-            'Schlägt Korrekturen vor und wendet sie erst nach Freigabe an.',
-          status: 'roadmap',
-        },
-        {
           title: 'Automatisierte Evals',
           detail: 'Bewertung der Inhaltsqualität.',
-          status: 'roadmap',
+          status: 'live',
         },
       ],
     },
