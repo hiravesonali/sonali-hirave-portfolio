@@ -15,6 +15,8 @@ export interface Experience {
   stack: string[];
 }
 
+export type ProjectVisualKind = 'eval-bars' | 'guard-pipeline';
+
 export interface Project {
   name: string;
   /** Short category shown on the card, e.g. "AI" or "Web". */
@@ -26,6 +28,8 @@ export interface Project {
   url?: string;
   /** Source code repository. */
   repoUrl?: string;
+  /** Optional animated illustration at the top of the card. */
+  visual?: ProjectVisualKind;
 }
 
 export type FeatureStatus = 'live' | 'building' | 'roadmap';
@@ -96,6 +100,9 @@ export interface ContentShape {
     role: string;
     headlineLead: string;
     headlineAccent: string;
+    /** Typed, rotating line under the headline: prefix + one of the words. */
+    rotatingPrefix: string;
+    rotating: string[];
     description: string;
     ctaWork: string;
     ctaContact: string;
@@ -332,6 +339,14 @@ const en: ContentShape = {
     role: 'Full-Stack AI Engineer',
     headlineLead: 'I build LLM-powered products,',
     headlineAccent: 'end to end.',
+    rotatingPrefix: 'I work on',
+    rotating: [
+      'RAG pipelines',
+      'tool-calling agents',
+      'LLM evals',
+      'structured outputs',
+      'streaming AI interfaces',
+    ],
     description:
       'Full-Stack AI Engineer with 5+ years of experience shipping scalable, high-performance web products. Now building LLM features from prompts, structured outputs, RAG and tool-calling agents to evaluation and the streaming UI on top.',
     ctaWork: 'See my work',
@@ -591,6 +606,7 @@ const en: ContentShape = {
         description:
           'A RAG assistant that helps expats in Germany with registration, residence permits, renting, family benefits, health insurance and taxes, by text or voice, in English or German. It answers only from official German sources with clickable citations, rewrites English questions to search German texts, combines vector and BM25 search, and calls tested tools for deadlines and benefit estimates. On a 32-question holdout set it scored 0.96 for correctness, against 0.86 for a naive RAG baseline. Built in the Turing College AI Engineering program.',
         url: ANKOMMEN_URL,
+        visual: 'eval-bars',
       },
       {
         name: 'Hoot — AI Interview Prep',
@@ -601,6 +617,7 @@ const en: ContentShape = {
           'An AI interview coach for technical roles: guided or mock practice sessions with scored feedback, a job-description analyzer that produces a prep plan and the interviewer’s rubric, and a resume builder that tailors a resume to a job. Every prompt passes a security guard (rules, an LLM classifier and output checks) with per-user spend caps. Built in the Turing College AI Engineering program.',
         url: HOOT_URL,
         repoUrl: HOOT_REPO,
+        visual: 'guard-pipeline',
       },
       {
         name: 'Expondo — Multilingual E-Commerce Platform',
@@ -720,6 +737,14 @@ const de: ContentShape = {
     role: 'Full-Stack AI Engineer',
     headlineLead: 'Ich baue LLM-gestützte Produkte,',
     headlineAccent: 'end-to-end.',
+    rotatingPrefix: 'Ich arbeite an',
+    rotating: [
+      'RAG-Pipelines',
+      'Tool-Calling-Agents',
+      'LLM-Evals',
+      'Structured Outputs',
+      'Streaming-Interfaces für KI',
+    ],
     description:
       'Full-Stack AI Engineer mit über 5 Jahren Erfahrung in der Entwicklung skalierbarer, performanter Webprodukte. Heute baue ich LLM-Features von Prompts, Structured Outputs, RAG und Tool-Calling-Agents bis zu Evaluation und dem Streaming-UI darüber.',
     ctaWork: 'Meine Arbeit ansehen',
@@ -981,6 +1006,7 @@ const de: ContentShape = {
         description:
           'Ein RAG-Assistent, der Expats in Deutschland bei Anmeldung, Aufenthaltstitel, Miete, Familienleistungen, Krankenversicherung und Steuern hilft, per Text oder Sprache, auf Englisch oder Deutsch. Er antwortet ausschließlich auf Basis offizieller deutscher Quellen mit anklickbaren Zitaten, übersetzt englische Fragen für die Suche in deutschen Texten, kombiniert Vektor- und BM25-Suche und nutzt getestete Tools für Fristen und Leistungsschätzungen. Auf einem Holdout-Set mit 32 Fragen erreichte er 0,96 bei der Korrektheit, gegenüber 0,86 für eine einfache RAG-Baseline. Entstanden im AI-Engineering-Programm des Turing College.',
         url: ANKOMMEN_URL,
+        visual: 'eval-bars',
       },
       {
         name: 'Hoot — KI-Interviewvorbereitung',
@@ -991,6 +1017,7 @@ const de: ContentShape = {
           'Ein KI-Interviewcoach für technische Rollen: geführte oder simulierte Übungsinterviews mit bewertetem Feedback, ein Stellenanzeigen-Analyzer mit Vorbereitungsplan und Bewertungsraster der Interviewer sowie ein Resume-Builder, der den Lebenslauf auf eine Stelle zuschneidet. Jeder Prompt durchläuft einen Security Guard (Regeln, LLM-Klassifikator und Output-Prüfung) mit Ausgabenlimits pro Nutzer. Entstanden im AI-Engineering-Programm des Turing College.',
         url: HOOT_URL,
         repoUrl: HOOT_REPO,
+        visual: 'guard-pipeline',
       },
       {
         name: 'Expondo — Mehrsprachige E-Commerce-Plattform',

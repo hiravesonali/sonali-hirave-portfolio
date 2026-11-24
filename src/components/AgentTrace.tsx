@@ -69,7 +69,7 @@ export function AgentTrace() {
 
   return (
     <div ref={ref} className="w-full">
-      <div className="overflow-hidden rounded-xl border border-line bg-surface shadow-2xl shadow-black/50">
+      <div className="border-beam overflow-hidden rounded-xl border border-line bg-surface shadow-2xl shadow-black/50">
         {/* Window bar */}
         <div className="flex items-center justify-between gap-3 border-b border-line px-4 py-3">
           <div className="flex min-w-0 items-center gap-3">

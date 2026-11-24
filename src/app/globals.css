@@ -14,6 +14,7 @@
   --color-muted: #a0a6ad;
   --color-faint: #70767d;
   --color-accent: #c8f560;
+  --color-accent-2: #5eead4;
   --color-accent-ink: #0c1002;
 
   --font-sans: var(--font-geist-sans);
@@ -80,6 +81,88 @@ body {
   );
 }
 
+/* Lime → teal gradient text. Padding keeps italic overhang from being clipped. */
+.text-gradient {
+  background: linear-gradient(100deg, var(--color-accent) 10%, var(--color-accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-right: 0.12em;
+}
+
+/* Soft glow that follows the cursor (position set by trackPointer). */
+.spotlight {
+  position: relative;
+  isolation: isolate;
+}
+.spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  background: radial-gradient(
+    380px circle at var(--mx, 50%) var(--my, 50%),
+    rgb(200 245 96 / 0.09),
+    transparent 65%
+  );
+}
+.spotlight:hover::before {
+  opacity: 1;
+}
+
+/* A short beam of light travelling around an element's border. */
+@property --beam-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+.border-beam {
+  position: relative;
+}
+.border-beam::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  background: conic-gradient(
+    from var(--beam-angle),
+    transparent 0 72%,
+    var(--color-accent) 86%,
+    var(--color-accent-2) 94%,
+    transparent 100%
+  );
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  animation: beam-spin 7s linear infinite;
+}
+@keyframes beam-spin {
+  to { --beam-angle: 360deg; }
+}
+
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 45s linear infinite;
+}
+.marquee:hover .animate-marquee {
+  animation-play-state: paused;
+}
+
+/* Fades the hero particle canvas out towards the bottom. */
+.mask-fade-b {
+  mask-image: linear-gradient(to bottom, #000 55%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
+}
+
 @keyframes caret-blink {
   0%, 49% { opacity: 1; }
   50%, 100% { opacity: 0; }
@@ -90,6 +173,8 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .animate-caret,
+  .animate-marquee,
+  .border-beam::after,
   .animate-spin,
   .animate-ping {
     animation: none;

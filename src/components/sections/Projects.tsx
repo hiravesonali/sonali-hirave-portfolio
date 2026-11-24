@@ -1,14 +1,17 @@
-"use client";
+'use client';
 
-import { useLanguage } from "@/i18n/LanguageProvider";
-import { SectionHeader } from "@/components/SectionHeader";
-import { Reveal, StaggerGroup, StaggerItem } from "@/components/motion/Reveal";
-import type { FeatureStatus, Project } from "@/content";
+import { motion } from 'framer-motion';
+import { useLanguage } from '@/i18n/LanguageProvider';
+import { SectionHeader } from '@/components/SectionHeader';
+import { Reveal, StaggerGroup, StaggerItem } from '@/components/motion/Reveal';
+import { ProjectVisual } from '@/components/ProjectVisual';
+import { trackPointer } from '@/components/fx/spotlight';
+import type { FeatureStatus, Project } from '@/content';
 
 const statusStyles: Record<FeatureStatus, string> = {
-  live: "border-accent/30 bg-accent/10 text-accent",
-  building: "border-line bg-raised text-fg",
-  roadmap: "border-line border-dashed text-faint",
+  live: 'border-accent/30 bg-accent/10 text-accent',
+  building: 'border-line bg-raised text-fg',
+  roadmap: 'border-line border-dashed text-faint',
 };
 
 function ProjectCard({
@@ -18,7 +21,7 @@ function ProjectCard({
   project: Project;
   labels: { visit: string; demo: string; code: string };
 }) {
-  const isAi = project.kind === "AI";
+  const isAi = project.kind === 'AI';
   const links = [
     project.url && {
       href: project.url,
@@ -28,19 +31,24 @@ function ProjectCard({
   ].filter(Boolean) as { href: string; label: string }[];
 
   return (
-    <article
-      className={`flex h-full flex-col rounded-xl border bg-surface p-6 transition-colors duration-300 sm:p-7 ${
+    <motion.article
+      onMouseMove={trackPointer}
+      whileHover={{ y: -4 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 24 }}
+      className={`spotlight flex h-full flex-col rounded-xl border bg-surface p-6 transition-colors duration-300 sm:p-7 ${
         isAi
-          ? "border-accent/30 hover:border-accent/60"
-          : "border-line hover:border-faint"
+          ? 'border-accent/30 hover:border-accent/60'
+          : 'border-line hover:border-faint'
       }`}
     >
+      {project.visual && <ProjectVisual kind={project.visual} />}
+
       <p className="flex items-center gap-2.5 font-mono text-xs text-faint">
         <span
           className={
             isAi
-              ? "rounded border border-accent/30 bg-accent/10 px-1.5 py-0.5 text-[10px] uppercase tracking-wider text-accent"
-              : ""
+              ? 'rounded border border-accent/30 bg-accent/10 px-1.5 py-0.5 text-[10px] uppercase tracking-wider text-accent'
+              : ''
           }
         >
           {project.kind}
@@ -54,7 +62,7 @@ function ProjectCard({
         {project.description}
       </p>
       <p className="mt-6 font-mono text-[11px] leading-relaxed text-faint">
-        {project.stack.join(" · ")}
+        {project.stack.join(' · ')}
       </p>
       {links.length > 0 && (
         <div className="mt-6 flex flex-wrap gap-2.5 border-t border-line pt-5">
@@ -64,14 +72,20 @@ function ProjectCard({
               href={l.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-9 items-center gap-1.5 rounded-md border border-line px-3 text-sm font-medium text-fg transition-colors hover:border-accent hover:text-accent"
+              className="group/link inline-flex h-9 items-center gap-1.5 rounded-md border border-line px-3 text-sm font-medium text-fg transition-colors hover:border-accent hover:text-accent"
             >
-              {l.label} <span aria-hidden>↗</span>
+              {l.label}{' '}
+              <span
+                aria-hidden
+                className="transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5"
+              >
+                ↗
+              </span>
             </a>
           ))}
         </div>
       )}
-    </article>
+    </motion.article>
   );
 }
 
@@ -92,7 +106,10 @@ export function Projects() {
 
         {/* Featured case study */}
         <Reveal className="mt-14">
-          <article className="grid overflow-hidden rounded-xl border border-line bg-surface lg:grid-cols-2">
+          <article
+            onMouseMove={trackPointer}
+            className="spotlight border-beam grid overflow-hidden rounded-xl border border-line bg-surface lg:grid-cols-2"
+          >
             <div className="flex flex-col p-6 sm:p-9">
               <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent">
                 {p.featuredLabel}
@@ -108,16 +125,22 @@ export function Projects() {
               </p>
 
               <p className="mt-6 font-mono text-[11px] leading-relaxed text-faint">
-                {f.stack.join(" · ")}
+                {f.stack.join(' · ')}
               </p>
 
               <a
                 href={f.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-7 inline-flex h-10 w-fit items-center gap-2 rounded-md border border-line px-4 text-sm font-medium text-fg transition-colors hover:border-accent hover:text-accent"
+                className="group/link mt-7 inline-flex h-10 w-fit items-center gap-2 rounded-md border border-line px-4 text-sm font-medium text-fg transition-colors hover:border-accent hover:text-accent"
               >
-                {p.visitLabel} doratics.com <span aria-hidden>↗</span>
+                {p.visitLabel} doratics.com{' '}
+                <span
+                  aria-hidden
+                  className="transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5"
+                >
+                  ↗
+                </span>
               </a>
             </div>
 
@@ -125,9 +148,9 @@ export function Projects() {
               <h4 className="font-mono text-xs uppercase tracking-[0.2em] text-faint">
                 {f.featuresHeading}
               </h4>
-              <ul className="mt-4 divide-y divide-line">
+              <StaggerGroup className="mt-4 divide-y divide-line">
                 {f.features.map((feat) => (
-                  <li
+                  <StaggerItem
                     key={feat.title}
                     className="flex items-start justify-between gap-4 py-3.5"
                   >
@@ -140,13 +163,19 @@ export function Projects() {
                       </p>
                     </div>
                     <span
-                      className={`mt-0.5 shrink-0 whitespace-nowrap rounded border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider ${statusStyles[feat.status]}`}
+                      className={`mt-0.5 inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider ${statusStyles[feat.status]}`}
                     >
+                      {feat.status === 'live' && (
+                        <span className="relative flex h-1.5 w-1.5">
+                          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
+                          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
+                        </span>
+                      )}
                       {p.statusLabels[feat.status]}
                     </span>
-                  </li>
+                  </StaggerItem>
                 ))}
-              </ul>
+              </StaggerGroup>
             </div>
           </article>
         </Reveal>
@@ -162,7 +191,7 @@ export function Projects() {
             <StaggerItem
               key={project.name}
               // Wide screens: AI projects two per row, web projects three per row.
-              className={`h-full ${project.kind === "AI" ? "lg:col-span-3" : "lg:col-span-2"}`}
+              className={`h-full ${project.kind === 'AI' ? 'lg:col-span-3' : 'lg:col-span-2'}`}
             >
               <ProjectCard
                 project={project}

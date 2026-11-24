@@ -5,6 +5,14 @@ import { useEffect, useState } from 'react';
 import { useLanguage } from '@/i18n/LanguageProvider';
 import { LogoMark } from '@/components/LogoMark';
 
+const SECTION_IDS = [
+  'about',
+  'capabilities',
+  'experience',
+  'projects',
+  'background',
+] as const;
+
 export function Navbar() {
   const { t, locale, toggle } = useLanguage();
   const { scrollYProgress } = useScroll();
@@ -15,6 +23,7 @@ export function Navbar() {
   });
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState<string | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -23,13 +32,30 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const links = [
-    { href: '#about', label: t.nav.about },
-    { href: '#capabilities', label: t.nav.capabilities },
-    { href: '#experience', label: t.nav.experience },
-    { href: '#projects', label: t.nav.projects },
-    { href: '#background', label: t.nav.background },
-  ];
+  // Highlight the section currently crossing the middle of the viewport.
+  // Re-runs on locale change because the sections re-mount.
+  useEffect(() => {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActive(entry.target.id);
+          else setActive((cur) => (cur === entry.target.id ? null : cur));
+        }
+      },
+      { rootMargin: '-45% 0px -50% 0px' },
+    );
+    for (const id of SECTION_IDS) {
+      const el = document.getElementById(id);
+      if (el) io.observe(el);
+    }
+    return () => io.disconnect();
+  }, [locale]);
+
+  const links = SECTION_IDS.map((id) => ({
+    id,
+    href: `#${id}`,
+    label: t.nav[id],
+  }));
 
   const solid = scrolled || open;
 
@@ -44,29 +70,42 @@ export function Navbar() {
       {/* Scroll progress */}
       <motion.div
         aria-hidden
-        className="absolute inset-x-0 top-0 h-px origin-left bg-accent"
+        className="absolute inset-x-0 top-0 h-0.5 origin-left bg-gradient-to-r from-accent to-accent-2"
         style={{ scaleX: progress }}
       />
 
       <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
-        <a href="#top" className="flex items-center gap-3 text-fg">
-          <LogoMark className="h-8 w-8" />
+        <a href="#top" className="group flex items-center gap-3 text-fg">
+          <LogoMark className="h-8 w-8 transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-105" />
           <span className="hidden text-sm font-medium tracking-tight sm:inline">
             Sonali Hirave
           </span>
         </a>
 
-        <ul className="hidden items-center gap-7 lg:flex">
-          {links.map((l) => (
-            <li key={l.href}>
-              <a
-                href={l.href}
-                className="text-sm text-muted transition-colors hover:text-fg"
-              >
-                {l.label}
-              </a>
-            </li>
-          ))}
+        <ul className="hidden items-center gap-1 lg:flex">
+          {links.map((l) => {
+            const isActive = active === l.id;
+            return (
+              <li key={l.href}>
+                <a
+                  href={l.href}
+                  aria-current={isActive ? 'true' : undefined}
+                  className={`relative block rounded-md px-3 py-1.5 text-sm transition-colors ${
+                    isActive ? 'text-fg' : 'text-muted hover:text-fg'
+                  }`}
+                >
+                  {isActive && (
+                    <motion.span
+                      layoutId="nav-active"
+                      className="absolute inset-0 rounded-md border border-line bg-raised"
+                      transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                    />
+                  )}
+                  <span className="relative">{l.label}</span>
+                </a>
+              </li>
+            );
+          })}
         </ul>
 
         <div className="flex items-center gap-3">
