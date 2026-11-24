@@ -463,7 +463,7 @@ const en: ContentShape = {
         company: 'Doratics',
         url: 'https://doratics.com',
         role: 'Full-Stack AI Engineer & Founder',
-        period: 'Apr 2025 — Present',
+        period: 'Apr 2026 — Present',
         location: 'Munich, Germany',
         bullets: [
           'Built a production-ready, SEO-first website platform for local businesses with Nuxt.js, TypeScript, Tailwind CSS, Nitro.js, Drizzle ORM and Cloudflare (Pages, D1, R2).',
@@ -477,7 +477,7 @@ const en: ContentShape = {
         company: 'Expondo GmbH',
         url: 'https://www.expondo.de',
         role: 'Frontend Engineer',
-        period: 'Mar 2022 — Mar 2025',
+        period: 'Mar 2022 — Mar 2026',
         location: 'Berlin, Germany',
         bullets: [
           'Developed and optimized scalable, multilingual e-commerce platforms with Vue.js, Nuxt.js, TypeScript and Tailwind CSS, serving 5M+ users across 20+ countries.',
@@ -533,7 +533,7 @@ const en: ContentShape = {
     featured: {
       name: 'Doratics',
       tagline: 'SEO-first website builder for local businesses',
-      year: '2025 — Present',
+      year: '2026 — Present',
       description:
         'A production platform that lets local businesses launch fast, search-optimized websites. I built the platform and am now adding the AI layer that writes, structures and checks the content.',
       url: 'https://doratics.com',
@@ -588,7 +588,7 @@ const en: ContentShape = {
       {
         name: 'Expondo — Multilingual E-Commerce Platform',
         kind: 'Web',
-        year: '2022 — 2025',
+        year: '2022 — 2026',
         stack: ['Vue 3', 'Nuxt.js', 'TypeScript', 'GraphQL', 'CommerceTools'],
         description:
           'Multilingual storefronts serving 5M+ users across 20+ countries. Load times cut from ~10s to 2–3s through SSR, caching and GraphQL optimization.',
@@ -846,7 +846,7 @@ const de: ContentShape = {
         company: 'Doratics',
         url: 'https://doratics.com',
         role: 'Full-Stack AI Engineer & Gründerin',
-        period: 'Apr 2025 — Heute',
+        period: 'Apr 2026 — Heute',
         location: 'München, Deutschland',
         bullets: [
           'Entwicklung einer produktionsreifen SEO-First Website-Plattform für lokale Unternehmen mit Nuxt.js, TypeScript, Tailwind CSS, Nitro.js, Drizzle ORM und Cloudflare (Pages, D1, R2).',
@@ -860,7 +860,7 @@ const de: ContentShape = {
         company: 'Expondo GmbH',
         url: 'https://www.expondo.de',
         role: 'Frontend Engineer',
-        period: 'Mär 2022 — Mär 2025',
+        period: 'Mär 2022 — Mär 2026',
         location: 'Berlin, Deutschland',
         bullets: [
           'Entwicklung und Optimierung skalierbarer, mehrsprachiger E-Commerce-Plattformen mit Vue.js, Nuxt.js, TypeScript und Tailwind CSS für mehr als 5 Millionen Nutzer in über 20 Ländern.',
@@ -916,7 +916,7 @@ const de: ContentShape = {
     featured: {
       name: 'Doratics',
       tagline: 'SEO-First Website-Builder für lokale Unternehmen',
-      year: '2025 — Heute',
+      year: '2026 — Heute',
       description:
         'Eine produktive Plattform, mit der lokale Unternehmen schnelle, suchmaschinenoptimierte Websites starten. Ich habe die Plattform gebaut und ergänze sie jetzt um den KI-Layer, der Inhalte schreibt, strukturiert und prüft.',
       url: 'https://doratics.com',
@@ -973,7 +973,7 @@ const de: ContentShape = {
       {
         name: 'Expondo — Mehrsprachige E-Commerce-Plattform',
         kind: 'Web',
-        year: '2022 — 2025',
+        year: '2022 — 2026',
         stack: ['Vue 3', 'Nuxt.js', 'TypeScript', 'GraphQL', 'CommerceTools'],
         description:
           'Mehrsprachige Storefronts für mehr als 5 Millionen Nutzer in über 20 Ländern. Ladezeiten von ca. 10s auf 2–3s reduziert durch SSR, Caching und GraphQL-Optimierung.',
