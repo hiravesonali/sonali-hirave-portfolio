@@ -229,6 +229,17 @@ const HOOT_STACK = [
   'PostgreSQL',
   'pytest',
 ];
+const ANKOMMEN_STACK = [
+  'Python',
+  'LangChain',
+  'LangSmith',
+  'Chroma',
+  'BM25',
+  'OpenAI API',
+  'Ragas',
+  'Streamlit',
+];
+const ANKOMMEN_URL = 'https://expat-assistant.streamlit.app/';
 const HOOT_URL = 'https://hoot-interview-prep-app.streamlit.app/';
 const HOOT_REPO = 'https://github.com/hiravesonali/Interview-prep-app';
 const ENTHRALL_STACK = ['HTML', 'CSS', 'JavaScript', 'UI & Graphic Design'];
@@ -520,7 +531,7 @@ const en: ContentShape = {
     label: 'Projects',
     heading: 'Selected work.',
     intro:
-      'A platform whose AI layer I built, an AI app I built and deployed, and the web platforms that taught me how to ship.',
+      'A platform whose AI layer I built, two AI apps I built and deployed, and the web platforms that taught me how to ship.',
     featuredLabel: 'Featured · AI',
     visitLabel: 'Visit',
     demoLabel: 'Live demo',
@@ -577,6 +588,15 @@ const en: ContentShape = {
     },
     moreHeading: 'More projects',
     items: [
+      {
+        name: 'Ankommen — Expat Guide to Germany',
+        kind: 'AI',
+        year: '2026',
+        stack: ANKOMMEN_STACK,
+        description:
+          'A RAG assistant that helps expats in Germany with registration, residence permits, renting, family benefits, health insurance and taxes, by text or voice, in English or German. It answers only from official German sources with clickable citations, rewrites English questions to search German texts, combines vector and BM25 search, and calls tested tools for deadlines and benefit estimates. On a 32-question holdout set it scored 0.96 for correctness, against 0.86 for a naive RAG baseline. Built in the Turing College AI Engineering program.',
+        url: ANKOMMEN_URL,
+      },
       {
         name: 'Hoot — AI Interview Prep',
         kind: 'AI',
@@ -905,7 +925,7 @@ const de: ContentShape = {
     label: 'Projekte',
     heading: 'Ausgewählte Arbeiten.',
     intro:
-      'Eine Plattform, deren KI-Layer ich gebaut habe, eine KI-App, die ich gebaut und deployt habe, und die Webplattformen, an denen ich gelernt habe, wie man ausliefert.',
+      'Eine Plattform, deren KI-Layer ich gebaut habe, zwei KI-Apps, die ich gebaut und deployt habe, und die Webplattformen, an denen ich gelernt habe, wie man ausliefert.',
     featuredLabel: 'Im Fokus · KI',
     visitLabel: 'Ansehen',
     demoLabel: 'Live-Demo',
@@ -964,6 +984,15 @@ const de: ContentShape = {
     },
     moreHeading: 'Weitere Projekte',
     items: [
+      {
+        name: 'Ankommen — Expat-Guide für Deutschland',
+        kind: 'AI',
+        year: '2026',
+        stack: ANKOMMEN_STACK,
+        description:
+          'Ein RAG-Assistent, der Expats in Deutschland bei Anmeldung, Aufenthaltstitel, Miete, Familienleistungen, Krankenversicherung und Steuern hilft, per Text oder Sprache, auf Englisch oder Deutsch. Er antwortet ausschließlich auf Basis offizieller deutscher Quellen mit anklickbaren Zitaten, übersetzt englische Fragen für die Suche in deutschen Texten, kombiniert Vektor- und BM25-Suche und nutzt getestete Tools für Fristen und Leistungsschätzungen. Auf einem Holdout-Set mit 32 Fragen erreichte er 0,96 bei der Korrektheit, gegenüber 0,86 für eine einfache RAG-Baseline. Entstanden im AI-Engineering-Programm des Turing College.',
+        url: ANKOMMEN_URL,
+      },
       {
         name: 'Hoot — KI-Interviewvorbereitung',
         kind: 'AI',

@@ -22,7 +22,7 @@ function ProjectCard({
   const links = [
     project.url && {
       href: project.url,
-      label: project.repoUrl ? labels.demo : labels.visit,
+      label: project.repoUrl || isAi ? labels.demo : labels.visit,
     },
     project.repoUrl && { href: project.repoUrl, label: labels.code },
   ].filter(Boolean) as { href: string; label: string }[];
@@ -157,9 +157,13 @@ export function Projects() {
             {p.moreHeading}
           </h3>
         </Reveal>
-        <StaggerGroup className="mt-5 grid gap-5 md:grid-cols-2">
+        <StaggerGroup className="mt-5 grid gap-5 md:grid-cols-2 lg:grid-cols-6">
           {p.items.map((project) => (
-            <StaggerItem key={project.name} className="h-full">
+            <StaggerItem
+              key={project.name}
+              // Wide screens: AI projects two per row, web projects three per row.
+              className={`h-full ${project.kind === "AI" ? "lg:col-span-3" : "lg:col-span-2"}`}
+            >
               <ProjectCard
                 project={project}
                 labels={{
