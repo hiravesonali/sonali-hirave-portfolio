@@ -467,8 +467,8 @@ const en: ContentShape = {
         location: 'Munich, Germany',
         bullets: [
           'Built a production-ready, SEO-first website platform for local businesses with Nuxt.js, TypeScript, Tailwind CSS, Nitro.js, Drizzle ORM and Cloudflare (Pages, D1, R2).',
-          "Designing and building the platform's AI layer: LLM content generation for service pages, meta tags and FAQs, and structured-output JSON-LD schema (LocalBusiness / FAQ) with validation.",
-          'Roadmap in active development: RAG over business data (menus, price lists) to ground content, an SEO audit agent with human-in-the-loop approval, and automated evals for content quality.',
+          'Built AI page generation that turns a blank new page into a ready-to-edit draft: SEO-optimized copy, meta tags and FAQs, produced with LLM structured outputs and validated before they reach the page.',
+          "Built an organizational brain: a vector-database RAG knowledge base of Doratics' product information, development standards and website-building standards that grounds the AI's output.",
           'Improved performance and SEO through server-side rendering, caching and efficient rendering, and set up a monorepo architecture (Turborepo, pnpm) for maintainability.',
         ],
         stack: DORATICS_STACK,
@@ -520,7 +520,7 @@ const en: ContentShape = {
     label: 'Projects',
     heading: 'Selected work.',
     intro:
-      'A platform where I am building the AI layer, an AI app I built and deployed, and the web platforms that taught me how to ship.',
+      'A platform whose AI layer I built, an AI app I built and deployed, and the web platforms that taught me how to ship.',
     featuredLabel: 'Featured · AI',
     visitLabel: 'Visit',
     demoLabel: 'Live demo',
@@ -535,7 +535,7 @@ const en: ContentShape = {
       tagline: 'SEO-first website builder for local businesses',
       year: '2026 — Present',
       description:
-        'A production platform that lets local businesses launch fast, search-optimized websites. I built the platform and am now adding the AI layer that writes, structures and checks the content.',
+        'A production platform that lets local businesses launch fast, search-optimized websites. I built the platform and its AI layer, which drafts each new page and grounds it in a RAG knowledge base.',
       url: 'https://doratics.com',
       stack: DORATICS_STACK,
       featuresHeading: 'Platform & AI layer',
@@ -547,19 +547,21 @@ const en: ContentShape = {
           status: 'live',
         },
         {
-          title: 'LLM content generation',
-          detail: 'Service pages, meta tags and FAQs.',
-          status: 'building',
+          title: 'AI page generation',
+          detail:
+            'New pages are filled with SEO-optimized copy, meta tags and FAQs.',
+          status: 'live',
         },
         {
-          title: 'Structured-output schema',
-          detail: 'LocalBusiness / FAQ JSON-LD with validation.',
-          status: 'building',
+          title: 'Structured outputs with validation',
+          detail: 'LLM output is schema-checked before it reaches the page.',
+          status: 'live',
         },
         {
-          title: 'RAG over business data',
-          detail: 'Menus and price lists ground the generated content.',
-          status: 'roadmap',
+          title: 'Organizational brain (RAG)',
+          detail:
+            'A vector knowledge base of product info and build standards grounds the output.',
+          status: 'live',
         },
         {
           title: 'SEO audit agent',
@@ -850,8 +852,8 @@ const de: ContentShape = {
         location: 'München, Deutschland',
         bullets: [
           'Entwicklung einer produktionsreifen SEO-First Website-Plattform für lokale Unternehmen mit Nuxt.js, TypeScript, Tailwind CSS, Nitro.js, Drizzle ORM und Cloudflare (Pages, D1, R2).',
-          'Konzeption und Entwicklung des KI-Layers der Plattform: LLM-Content-Generierung für Leistungsseiten, Meta-Tags und FAQs sowie Structured-Output-JSON-LD-Schema (LocalBusiness / FAQ) mit Validierung.',
-          'Roadmap in aktiver Entwicklung: RAG über Unternehmensdaten (Speisekarten, Preislisten) zur Fundierung der Inhalte, ein SEO-Audit-Agent mit Human-in-the-Loop-Freigabe und automatisierte Evals für die Inhaltsqualität.',
+          'Entwicklung einer KI-Seitengenerierung, die aus einer leeren neuen Seite einen direkt bearbeitbaren Entwurf macht: SEO-optimierte Texte, Meta-Tags und FAQs, erzeugt mit LLM Structured Outputs und validiert, bevor sie auf die Seite gelangen.',
+          'Aufbau eines „Organizational Brain“: eine RAG-Wissensbasis in einer Vektordatenbank mit Produktinformationen, Entwicklungs- und Website-Standards von Doratics, auf die sich die KI-Ausgaben stützen.',
           'Verbesserung von Performance und SEO durch Server-Side Rendering, Caching und effizientes Rendering sowie Aufbau einer Monorepo-Architektur (Turborepo, pnpm) für bessere Wartbarkeit.',
         ],
         stack: DORATICS_STACK,
@@ -903,7 +905,7 @@ const de: ContentShape = {
     label: 'Projekte',
     heading: 'Ausgewählte Arbeiten.',
     intro:
-      'Eine Plattform, deren KI-Layer ich baue, eine KI-App, die ich gebaut und deployt habe, und die Webplattformen, an denen ich gelernt habe, wie man ausliefert.',
+      'Eine Plattform, deren KI-Layer ich gebaut habe, eine KI-App, die ich gebaut und deployt habe, und die Webplattformen, an denen ich gelernt habe, wie man ausliefert.',
     featuredLabel: 'Im Fokus · KI',
     visitLabel: 'Ansehen',
     demoLabel: 'Live-Demo',
@@ -918,7 +920,7 @@ const de: ContentShape = {
       tagline: 'SEO-First Website-Builder für lokale Unternehmen',
       year: '2026 — Heute',
       description:
-        'Eine produktive Plattform, mit der lokale Unternehmen schnelle, suchmaschinenoptimierte Websites starten. Ich habe die Plattform gebaut und ergänze sie jetzt um den KI-Layer, der Inhalte schreibt, strukturiert und prüft.',
+        'Eine produktive Plattform, mit der lokale Unternehmen schnelle, suchmaschinenoptimierte Websites starten. Ich habe die Plattform und ihren KI-Layer gebaut, der jede neue Seite entwirft und sich dabei auf eine RAG-Wissensbasis stützt.',
       url: 'https://doratics.com',
       stack: DORATICS_STACK,
       featuresHeading: 'Plattform & KI-Layer',
@@ -930,20 +932,22 @@ const de: ContentShape = {
           status: 'live',
         },
         {
-          title: 'LLM-Content-Generierung',
-          detail: 'Leistungsseiten, Meta-Tags und FAQs.',
-          status: 'building',
-        },
-        {
-          title: 'Structured-Output-Schema',
-          detail: 'LocalBusiness- / FAQ-JSON-LD mit Validierung.',
-          status: 'building',
-        },
-        {
-          title: 'RAG über Unternehmensdaten',
+          title: 'KI-Seitengenerierung',
           detail:
-            'Speisekarten und Preislisten fundieren die generierten Inhalte.',
-          status: 'roadmap',
+            'Neue Seiten werden mit SEO-optimierten Texten, Meta-Tags und FAQs gefüllt.',
+          status: 'live',
+        },
+        {
+          title: 'Structured Outputs mit Validierung',
+          detail:
+            'LLM-Ausgaben werden gegen ein Schema geprüft, bevor sie auf die Seite gelangen.',
+          status: 'live',
+        },
+        {
+          title: 'Organizational Brain (RAG)',
+          detail:
+            'Eine Vektor-Wissensbasis mit Produktinfos und Standards fundiert die Ausgaben.',
+          status: 'live',
         },
         {
           title: 'SEO-Audit-Agent',
