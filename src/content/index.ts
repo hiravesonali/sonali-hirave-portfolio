@@ -203,7 +203,6 @@ const DORATICS_STACK = [
   'Next.js',
   'React',
   'TypeScript',
-  'Nitro.js',
   'Drizzle ORM',
   'SQLite (D1)',
   'Cloudflare',
@@ -492,7 +491,7 @@ const en: ContentShape = {
         period: 'Apr 2026 — Present',
         location: 'Munich, Germany',
         bullets: [
-          'Built a production-ready, SEO-first website platform for local businesses with Next.js, React, TypeScript, Tailwind CSS, Nitro.js, Drizzle ORM and Cloudflare (Pages, D1, R2).',
+          'Built a production-ready, SEO-first website platform for local businesses with Next.js, React, TypeScript, Tailwind CSS, Drizzle ORM and Cloudflare (Pages, D1, R2).',
           'Built AI page generation that turns a blank new page into a ready-to-edit draft: SEO-optimized copy, meta tags and FAQs, produced with LLM structured outputs and validated before they reach the page.',
           "Built an organizational brain: a vector-database RAG knowledge base of Doratics' product information, development standards and website-building standards that grounds the AI's output.",
           'Improved performance and SEO through server-side rendering, caching and efficient rendering, and set up a monorepo architecture (Turborepo, pnpm) for maintainability.',
@@ -891,7 +890,7 @@ const de: ContentShape = {
         period: 'Apr 2026 — Heute',
         location: 'München, Deutschland',
         bullets: [
-          'Entwicklung einer produktionsreifen SEO-First Website-Plattform für lokale Unternehmen mit Next.js, React, TypeScript, Tailwind CSS, Nitro.js, Drizzle ORM und Cloudflare (Pages, D1, R2).',
+          'Entwicklung einer produktionsreifen SEO-First Website-Plattform für lokale Unternehmen mit Next.js, React, TypeScript, Tailwind CSS, Drizzle ORM und Cloudflare (Pages, D1, R2).',
           'Entwicklung einer KI-Seitengenerierung, die aus einer leeren neuen Seite einen direkt bearbeitbaren Entwurf macht: SEO-optimierte Texte, Meta-Tags und FAQs, erzeugt mit LLM Structured Outputs und validiert, bevor sie auf die Seite gelangen.',
           'Aufbau eines „Organizational Brain“: eine RAG-Wissensbasis in einer Vektordatenbank mit Produktinformationen, Entwicklungs- und Website-Standards von Doratics, auf die sich die KI-Ausgaben stützen.',
           'Verbesserung von Performance und SEO durch Server-Side Rendering, Caching und effizientes Rendering sowie Aufbau einer Monorepo-Architektur (Turborepo, pnpm) für bessere Wartbarkeit.',
